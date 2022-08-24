@@ -1,0 +1,27 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.w3.org/1999/xhtml">
+<head>
+    <meta charset="UTF-8">
+    <title>Add rectangle</title>
+</head>
+<body>
+<form method="PATCH" th:action="@{/rectangleRooms/saveRectangleRoom}" th:object="${room}">
+    <label for="name">Название</label>
+    <input type="text" th:field="*{name}" id="name"/>
+    <br>
+    <label for="length">Length</label>
+    <input type="number" th:field="*{length}" id="length"/>
+    <br>
+    <label for="width">Width</label>
+    <input type="number" th:field="*{width}" id="width"/>
+    <br>
+    <label for="height">height</label>
+    <input type="number" th:field="*{height}" id="height"/>
+    <br>
+    <input type="hidden" th:field="*{flat}" id="flat"/>
+    <br>
+    <input type="submit" value="Add rectangleRoom"/>
+</form>
+
+</body>
+</html>

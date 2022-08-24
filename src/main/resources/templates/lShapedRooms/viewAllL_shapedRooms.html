@@ -1,0 +1,23 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.w3.org/1999/xhtml">
+<head>
+    <meta charset="UTF-8">
+    <title>Flats</title>
+</head>
+<body>
+<h1>Flats list</h1>
+
+<table>
+    <tr>
+        <th>Rectangles</th>
+    </tr>
+    <tr th:each="lShapedFigure: ${lShapedFigures}">
+        <td th:text="${lShapedFigure.length}">Length</td>
+    </tr>
+    <div><li><a href="./rectangles/addRectangle">Add rectangle</a></li></div>
+    <div><li><a href="../flats/addFlat">Add flat</a></li></div>
+</table>
+
+
+</body>
+</html>

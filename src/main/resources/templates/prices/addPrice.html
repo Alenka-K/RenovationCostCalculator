@@ -1,0 +1,28 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.w3.org/1999/xhtml">
+<head>
+    <meta charset="UTF-8">
+    <title>Добавление вида работ в прайс-лист</title>
+</head>
+<body>
+<h2>Добавте вид работ в прайс-лист</h2>
+<form th:method="post" th:action="@{/prices}" th:object="${price}">
+    <label for="typeOfConstructionWork">Вид работы</label>
+    <input type="text" th:field="*{typeOfConstructionWork}" id="typeOfConstructionWork"/>
+    <br>
+    <label for="price">Цена
+    <input type="text" th:field="*{price}" id="price"/>грн за </label>
+    <label>
+        <input type="radio" th:field="*{unit}" name="unit" value="м2">
+        м2
+    </label>
+    <label>
+        <input type="radio" th:field="*{unit}" name="unit" value="мп">
+        мп
+    </label>
+    <br>
+    <input type="submit" value="Добавить"/>
+</form>
+
+</body>
+</html>

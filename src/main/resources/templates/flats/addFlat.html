@@ -1,0 +1,16 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.w3.org/1999/xhtml">
+<head>
+    <meta charset="UTF-8">
+    <title>Add flat</title>
+</head>
+<body>
+<form th:method="post" th:action="@{/flats}" th:object="${flat}">
+    <label for="address">Адресс</label>
+    <input type="text" th:field="*{address}" id="address"/>
+    <br>
+    <input type="submit" value="Добавить объект"/>
+</form>
+
+</body>
+</html>

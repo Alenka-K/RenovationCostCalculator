@@ -1,0 +1,36 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.w3.org/1999/xhtml">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+</head>
+<body>
+<table border="2" >
+    <tbody>
+    <tr>
+        <th>Id flat</th>
+        <th>ID</th>
+        <th>Название</th>
+        <th>Высота</th>
+        <th>Форма комнаты</th>
+        <th>Размеры</th>
+        <th>Размеры</th>
+        <th>Количество проемов</th>
+        <th>Id flat</th>
+
+    </tr>
+    <tr th:each="rectangleRoom: ${rooms}">
+        <td th:text="${rectangleRoom.flat.address}">VALUE</td>
+        <td><a th:href="@{./rooms/viewRoom/{id}(id=${rectangleRoom.getId()})}" th:text="${rectangleRoom.getId()}">Номер</a></td>
+        <td th:text="${rectangleRoom.getName()}"><a th:href="@{./rooms/viewRoom/{id}(id=${rectangleRoom.getId()})}">VALUE</a></td>
+        <td th:text="${rectangleRoom.getHeight()}">VALUE</td>
+        <td th:text="${rectangleRoom.getForm()}">VALUE</td>
+        <td th:text="${rectangleRoom.rectangle}">VALUE</td>
+        <td th:text="${rectangleRoom.lShapedFigure}">VALUE</td>
+        <td th:text="${rectangleRoom.getCountOfOpenings()}">VALUE</td>
+        <td><a th:href="@{./rooms/deleteRoom/{id}(id=${rectangleRoom.id})}">Удалить комнату</a></td>
+    </tr>
+    </tbody>
+</table>
+</body>
+</html>

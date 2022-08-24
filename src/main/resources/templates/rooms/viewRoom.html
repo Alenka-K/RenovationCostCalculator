@@ -1,0 +1,47 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://thymeleaf.org" xmlns="http://www.w3.org/1999/html">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+</head>
+<body>
+        <tr>
+            <td>Название</td>
+            <td th:text="${rectangleRoom.getName()}">VALUE</td>
+        </tr>
+        <br>
+        <tr>
+            <td>Высота</td>
+            <td th:text="${rectangleRoom.getHeight()}">VALUE</td>
+        </tr>
+        <br>
+        <tr>
+            <td>Форма комнаты</td>
+            <td th:text="${rectangleRoom.getForm()}">VALUE</td>
+        </tr>
+        <br>
+        <tr>
+            <td>Количество проемов</td>
+            <td th:text="${rectangleRoom.getCountOfOpenings()}">VALUE</td>
+        </tr>
+        <br>
+        <br>
+        <tr>
+            <td>Размеры прямоугольника</td>
+            <td th:text="${rectangleRoom.rectangle}">VALUE</td>
+        </tr>
+        <br>
+        <tr>
+            <td>Id flat</td>
+            <td th:text="${rectangleRoom.flat.id}">VALUE</td>
+        </tr>
+        <br>
+
+            <td><a th:href="@{../addRoom/{id}(id=${rectangleRoom.flat.id})}">Добавить комнату</a></td>
+
+        <br>
+
+
+
+</body>
+</html>

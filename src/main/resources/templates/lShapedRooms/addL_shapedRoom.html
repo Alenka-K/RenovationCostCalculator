@@ -1,0 +1,48 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.w3.org/1999/xhtml">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+</head>
+<body>
+
+<img width="300px" th:src="@{/images/My.png}" />
+<form method="PATCH" th:action="@{/lShapedRooms/saveL_shapedRoom}" th:object="${room}">
+    <label for="name">Название</label>
+    <input type="text" th:field="*{name}" id="name"/>
+    <br>
+    <br>
+    <label for="length">Длинна</label>
+    <input type="number" th:field="*{length}" id="length"/>
+    <br>
+    <label for="width">Ширина</label>
+    <input type="number" th:field="*{width}" id="width"/>
+    <br>
+    <label for="lengthSmall">Длинна меньшая</label>
+    <input type="number" th:field="*{lengthSmall}" id="lengthSmall"/>
+    <br>
+    <label for="widthSmall">Ширина меньшая</label>
+    <input type="number" th:field="*{widthSmall}" id="widthSmall"/>
+    <br>
+    <input type="hidden" th:field="*{flat}" id="flat"/>
+    <br>
+    <style type="text/css">
+        button[name="run_script"] {
+            border: none;
+            border-radius: 7px;
+            padding: 10px 25px;
+            background: #ff9900;
+            cursor: pointer;
+            text-transform: uppercase;
+            font-weight: bold;
+            color: white;
+        }
+        button[name="run_script"]:hover {
+            background: #ff6600;
+        }
+    </style>
+    <input type="submit" value="Добавить размеры"/>
+
+</form>
+</body>
+</html>

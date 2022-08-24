@@ -1,0 +1,37 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th=http://www.w3.org/1999/xhtml" >
+<head>
+    <meta charset="UTF-8">
+    <title>Flats</title>
+    <link rel="stylesheet" type="text/css" th:href="@{/style.css}"/>
+</head>
+<body>
+<h1>Прямоугольные комнаты</h1>
+
+<table>
+    <tbody>
+    <tr>
+        <th>Название</th>
+        <th>Длинна</th>
+        <th>Высота</th>
+        <th>Ширина</th>
+        <th>Адрес обьекта</th>
+        <th>Удалить</th>
+    </tr>
+    <tr th:each="room: ${rectangleRooms}">
+        <td th:text="${room.name}">Length</td>
+        <td th:text="${room.length}">Length</td>
+        <td th:text="${room.height}">Length</td>
+        <td th:text="${room.width}">Length</td>
+        <td th:text="${room.flat.address}">Length</td>
+        <td>
+            <li><a th:href="@{./rectangleRooms/deleteRectangleRoom/{id}(id=${room.getId()})}">Удалить комнату</a></li>
+        </td>
+
+    </tr>
+    </tbody>
+</table>
+
+
+</body>
+</html>

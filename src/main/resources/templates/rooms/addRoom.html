@@ -1,0 +1,35 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.w3.org/1999/xhtml">
+<head>
+    <meta charset="UTF-8">
+    <title>Добавление комнаты</title>
+</head>
+<body>
+<h2>Введите форму комнаты:</h2>
+
+<form method="post" th:action="@{/rooms/saveRoom}" th:object="${rectangleRoom}">
+    <input type="hidden" th:field="*{id}" id="id">
+    <label for="name">Название</label>
+    <input type="text" th:field="*{name}" id="name"/>
+    <br>
+    <label for="height">Высота</label>
+    <input type="number" th:field="*{height}" id="height"/>
+    <br>
+    <label for="form">Форма комнаты</label>
+    <select th:field="*{form}" id="form">
+        <option value="RECTANGLE" >Прямоугольник</option>
+        <option value="L_SHAPED">Гобразная</option>
+    </select>
+    <br>
+    <label for="flat">Номер объекта</label>
+    <input type="text" th:field="*{flat}" id="flat"/>
+    <br>
+    <label for="countOfOpenings">Количество проемов</label>
+    <input type="number" th:field="*{countOfOpenings}" id="countOfOpenings"/>
+    <br>
+
+    <button type="submit" value="Go">Go</button>
+</form>
+
+</body>
+</html>

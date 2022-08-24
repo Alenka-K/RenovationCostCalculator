@@ -1,0 +1,16 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.w3.org/1999/xhtml"
+>
+<head>
+    <meta charset="UTF-8">
+    <title>Обновить данные</title>
+</head>
+<body>
+<form th:method="patch" th:action="@{/flats/editFlat}" th:object="${flat}">
+    <label for="address">Адресс</label>
+    <input type="text" th:field="*{address}" id="address"/>
+    <br>
+    <input type="submit" value="Обновить"/>
+</form>
+</body>
+</html>
