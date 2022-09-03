@@ -2,9 +2,7 @@ package com.example.renovationcostcalculator.controllers;
 
 
 import com.example.renovationcostcalculator.model.Flat;
-import com.example.renovationcostcalculator.model.room.RectangleRoom;
 import com.example.renovationcostcalculator.services.FlatService;
-import com.example.renovationcostcalculator.services.RectangleService;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
@@ -15,13 +13,12 @@ import org.springframework.web.bind.annotation.*;
 public class FlatController  {
 
     private final FlatService flatService;
-    private final RectangleService rectangleService;
 
 
 
-    public FlatController(FlatService flatService, RectangleService rectangleService) {
+    public FlatController(FlatService flatService) {
         this.flatService = flatService;
-        this.rectangleService = rectangleService;
+
     }
 
     @GetMapping()
@@ -33,7 +30,6 @@ public class FlatController  {
     @GetMapping("viewFlat/{id}")
     public String viewFlat(@PathVariable("id") Long id, Model model){
         model.addAttribute("flat", flatService.findById(id));
-        System.out.println(rectangleService.findAllByFlat_ID(id));
         return "flats/viewFlat";
     }
 

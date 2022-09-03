@@ -2,6 +2,7 @@ package com.example.renovationcostcalculator.model;
 
 import com.example.renovationcostcalculator.model.room.L_shapedRoom;
 import com.example.renovationcostcalculator.model.room.RectangleRoom;
+import com.example.renovationcostcalculator.model.room.Room;
 import lombok.AllArgsConstructor;
 import lombok.NoArgsConstructor;
 import lombok.ToString;
@@ -23,10 +24,8 @@ public class Flat {
 
 
     @OneToMany(cascade = CascadeType.ALL, fetch = FetchType.EAGER, mappedBy = "flat")
-    private List<RectangleRoom> rectangleRooms;
+    private List<Room> rooms;
 
-    @OneToMany(cascade = CascadeType.ALL, fetch = FetchType.EAGER, mappedBy = "flat")
-    private List<L_shapedRoom> l_shapedRooms;
 
     public Long getId() {
         return id;
@@ -44,20 +43,12 @@ public class Flat {
         this.address = address;
     }
 
-    public List<RectangleRoom> getRectangleRooms() {
-        return rectangleRooms;
+    public List<Room> getRooms() {
+        return rooms;
     }
 
-    public void setRectangleRooms(List<RectangleRoom> rectangleRooms) {
-        this.rectangleRooms = rectangleRooms;
-    }
-
-    public List<L_shapedRoom> getL_shapedRooms() {
-        return l_shapedRooms;
-    }
-
-    public void setL_shapedRooms(List<L_shapedRoom> l_shapedRooms) {
-        this.l_shapedRooms = l_shapedRooms;
+    public void setRooms(List<Room> rooms) {
+        this.rooms = rooms;
     }
 
     @Override
@@ -69,17 +60,14 @@ public class Flat {
 
         if (id != null ? !id.equals(flat.id) : flat.id != null) return false;
         if (address != null ? !address.equals(flat.address) : flat.address != null) return false;
-        if (rectangleRooms != null ? !rectangleRooms.equals(flat.rectangleRooms) : flat.rectangleRooms != null)
-            return false;
-        return l_shapedRooms != null ? l_shapedRooms.equals(flat.l_shapedRooms) : flat.l_shapedRooms == null;
+        return rooms != null ? rooms.equals(flat.rooms) : flat.rooms == null;
     }
 
     @Override
     public int hashCode() {
         int result = id != null ? id.hashCode() : 0;
         result = 31 * result + (address != null ? address.hashCode() : 0);
-        result = 31 * result + (rectangleRooms != null ? rectangleRooms.hashCode() : 0);
-        result = 31 * result + (l_shapedRooms != null ? l_shapedRooms.hashCode() : 0);
+        result = 31 * result + (rooms != null ? rooms.hashCode() : 0);
         return result;
     }
 
@@ -88,8 +76,7 @@ public class Flat {
         return "Flat{" +
                 "id=" + id +
                 ", address='" + address + '\'' +
-                ", rectangleRooms=" + rectangleRooms +
-                ", l_shapedRooms=" + l_shapedRooms +
+                ", rooms=" + rooms +
                 '}';
     }
 }

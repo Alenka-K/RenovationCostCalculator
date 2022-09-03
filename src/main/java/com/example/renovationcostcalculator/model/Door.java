@@ -2,6 +2,7 @@ package com.example.renovationcostcalculator.model;
 
 import com.example.renovationcostcalculator.model.room.L_shapedRoom;
 import com.example.renovationcostcalculator.model.room.RectangleRoom;
+import com.example.renovationcostcalculator.model.room.Room;
 import lombok.*;
 
 import javax.persistence.*;
@@ -24,12 +25,9 @@ public class Door implements Opening{
     private double depth;
 
     @ManyToOne
-    @JoinColumn(name = "l_shaped_room_id")
-    private L_shapedRoom l_shapedRoom;
+    @JoinColumn(name = "room_id")
+    private Room room;
 
-    @ManyToOne
-    @JoinColumn(name = "rectangle_room_id")
-    private RectangleRoom rectangleRoom;
 
 
     @Override

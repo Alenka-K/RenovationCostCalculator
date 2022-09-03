@@ -2,13 +2,9 @@ package com.example.renovationcostcalculator.controllers;
 
 
 import com.example.renovationcostcalculator.model.Door;
-import com.example.renovationcostcalculator.model.RoomWindow;
-import com.example.renovationcostcalculator.model.room.L_shapedRoom;
-import com.example.renovationcostcalculator.model.room.RectangleRoom;
+import com.example.renovationcostcalculator.model.room.Room;
 import com.example.renovationcostcalculator.services.DoorService;
-import com.example.renovationcostcalculator.services.L_shapedService;
-import com.example.renovationcostcalculator.services.RectangleService;
-import com.example.renovationcostcalculator.services.RoomWindowService;
+import com.example.renovationcostcalculator.services.RoomService;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -22,14 +18,12 @@ import java.util.List;
 @RequestMapping("doors")
 public class DoorController {
 
-    private final RectangleService rectangleService;
-    private final L_shapedService l_shapedService;
+    private final RoomService roomService;
     private final DoorService doorService;
 
-    public DoorController(RectangleService rectangleService, L_shapedService l_shapedService, DoorService doorService) {
+    public DoorController(RoomService roomService, DoorService doorService) {
+        this.roomService = roomService;
         this.doorService = doorService;
-        this.rectangleService = rectangleService;
-        this.l_shapedService = l_shapedService;
     }
 
     @GetMapping()
@@ -41,27 +35,16 @@ public class DoorController {
     @RequestMapping("/addDoor/{id}/{form}")
     public String addDoor(@PathVariable("id") Long id, @PathVariable("form") String form, Model model){
         Door door = new Door();
-        if (form.equals("Rectangle")){
-            RectangleRoom room = rectangleService.findById(id);
-            door.setRectangleRoom(rectangleService.findById(id));
+            Room room = roomService.findById(id);
+            door.setRoom(roomService.findById(id));
             List<Door> list = room.getDoors();
             if(list.isEmpty()|| !list.contains(door)){
                 list.add(door);
-                rectangleService.findById(id).setDoors(list);
+                roomService.findById(id).setDoors(list);
                 System.out.println(door);
-                System.out.println(rectangleService.findById(id));
+                System.out.println(roomService.findById(id));
             }
 
-        }
-        if (form.equals("L_shaped")){
-            L_shapedRoom room = l_shapedService.findById(id);
-            door.setL_shapedRoom(l_shapedService.findById(id));
-            List<Door> list = room.getDoors();
-            if(list.isEmpty()|| !list.contains(door)){
-                list.add(door);
-                l_shapedService.findById(id).setDoors(list);
-            }
-        }
         model.addAttribute("door", door);
         return "doors/addDoor";
     }
