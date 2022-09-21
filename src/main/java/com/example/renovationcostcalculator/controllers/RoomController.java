@@ -33,7 +33,6 @@ public class RoomController {
     public String addRectangleRoom(@PathVariable("id") Long id, Model model){
         Room room = new RectangleRoom();
         room.setFlat(flatService.findById(id));
-        System.out.println(room);
         model.addAttribute("room", room);
         return "rooms/addRectangleRoom";
     }
@@ -41,21 +40,19 @@ public class RoomController {
     @RequestMapping("saveRectangleRoom")
     public String saveRectangleRoom(@ModelAttribute("room") RectangleRoom rectangleRoom){
         roomService.save(rectangleRoom);
-        System.out.println(rectangleRoom);
         return "redirect:/flats";
     }
 
-    @RequestMapping("/deleteRectangleRoom/{id}")
-    public String deleteRectangleRoom(@PathVariable("id") Long id) {
+    @RequestMapping("/deleteRoom/{id}")
+    public String deleteRoom(@PathVariable("id") Long id) {
         roomService.delete(id);
-        return "redirect:/rectangleRooms";
+        return "redirect:/flats";
     }
 
-    @RequestMapping("/addL_sapedRoom/{id}")
+    @RequestMapping("/addL_shapedRoom/{id}")
     public String addL_shapedRoom(@PathVariable("id") Long id, Model model){
         Room room = new L_shapedRoom();
         room.setFlat(flatService.findById(id));
-        System.out.println(room);
         model.addAttribute("room", room);
         return "rooms/addL_shapedRoom";
     }
@@ -63,8 +60,8 @@ public class RoomController {
     @RequestMapping("saveL_shapedRoom")
     public String saveL_shapedRoom(@ModelAttribute("room") L_shapedRoom l_shapedRoom){
         roomService.save(l_shapedRoom);
-        System.out.println(l_shapedRoom);
         return "redirect:/flats";
     }
+
 
 }

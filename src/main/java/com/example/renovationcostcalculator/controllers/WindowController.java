@@ -33,18 +33,14 @@ public class WindowController {
         return "roomWindows/viewAllWindow";
     }
 
-    @RequestMapping("/addWindow/{id}/{form}")
-    public String addWindow(@PathVariable("id") Long id, @PathVariable("form") String form, Model model){
+    @RequestMapping("/addWindow/{id}")
+    public String addWindow(@PathVariable("id") Long id, Model model){
         RoomWindow roomWindow = new RoomWindow();
            Room room = roomService.findById(id);
             roomWindow.setRoom(roomService.findById(id));
             List<RoomWindow> list = room.getRoomWindows();
-            if(list.isEmpty()|| !list.contains(roomWindow)){
                 list.add(roomWindow);
                 roomService.findById(id).setRoomWindows(list);
-                System.out.println(roomWindow);
-                System.out.println(roomService.findById(id));
-            }
 
         model.addAttribute("roomWindow", roomWindow);
         return "roomWindows/addWindow";
@@ -53,7 +49,6 @@ public class WindowController {
     @RequestMapping("saveWindow")
     public String saveWindow(@ModelAttribute("roomWindow") RoomWindow roomWindow){
         roomWindowService.save(roomWindow);
-        System.out.println(roomWindow);
         return "redirect:/flats";
     }
 

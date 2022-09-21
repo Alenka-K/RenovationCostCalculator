@@ -2,6 +2,7 @@ package com.example.renovationcostcalculator.controllers;
 
 
 import com.example.renovationcostcalculator.model.Flat;
+import com.example.renovationcostcalculator.model.room.Room;
 import com.example.renovationcostcalculator.services.FlatService;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;

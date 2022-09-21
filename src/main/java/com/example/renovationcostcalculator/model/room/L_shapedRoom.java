@@ -1,11 +1,8 @@
 package com.example.renovationcostcalculator.model.room;
 
-import com.example.renovationcostcalculator.model.Door;
-import com.example.renovationcostcalculator.model.Flat;
-import com.example.renovationcostcalculator.model.RoomWindow;
+import com.example.renovationcostcalculator.model.Form;
 import lombok.*;
 import javax.persistence.*;
-import java.util.List;
 
 
 @Entity
@@ -15,9 +12,8 @@ import java.util.List;
 @Setter
 @EqualsAndHashCode
 public class L_shapedRoom  extends Room {
-    private final String form = "L_shaped";
 
-    private String name;
+    private final Form form = Form.L_SHAPED;
 
     private double length;
     private double width;
@@ -53,9 +49,8 @@ public class L_shapedRoom  extends Room {
 
     @Override
     public String toString() {
-        return "L_shapedRoom{" +
+        return super.toString() +
                 "form='" + form + '\'' +
-                ", name='" + name + '\'' +
                 ", length=" + length +
                 ", width=" + width +
                 ", lengthSmall=" + lengthSmall +

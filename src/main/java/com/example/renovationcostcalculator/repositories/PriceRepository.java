@@ -9,7 +9,7 @@ import org.springframework.stereotype.Repository;
 public interface PriceRepository extends JpaRepository<Price, String> {
 
 
-    void deleteByTypeOfConstructionWork(String typeOfConstructionWork);
+    void deleteByType(String type);
 
-    Price findByTypeOfConstructionWork(String typeOfConstructionWork);
+    Price findByType(String type);
 }

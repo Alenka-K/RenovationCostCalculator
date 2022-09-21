@@ -18,11 +18,11 @@
                 <th>Удалить</th>
             </tr>
             <tr th:each="price:${prices}">
-                <td th:text="${price.getTypeOfConstructionWork}"></td>
-                <td th:text="${price.getPrice}"></td>
+                <td th:text="${price.getType}"></td>
+                <td th:text="${price.getAmount}"></td>
                 <td th:text="${price.getUnit}"></td>
-                <td><a th:href="@{./prices/updatePrice/{id}(id=${price.getTypeOfConstructionWork})}">edit</a></td>
-                <td><a th:href="@{./prices/deletePrice/{id}(id=${price.getTypeOfConstructionWork})}">delete</a></td>
+                <td><a th:href="@{./prices/updatePrice/{id}(id=${price.getType})}">edit</a></td>
+                <td><a th:href="@{./prices/deletePrice/{id}(id=${price.getType})}">delete</a></td>
 
             </tr>
         </tbody>

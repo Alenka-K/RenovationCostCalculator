@@ -1,6 +1,8 @@
 package com.example.renovationcostcalculator.services;
 
 
+import com.example.renovationcostcalculator.model.Flat;
+import com.example.renovationcostcalculator.model.Form;
 import com.example.renovationcostcalculator.model.room.Room;
 import com.example.renovationcostcalculator.repositories.RoomRepository;
 import org.springframework.stereotype.Service;
@@ -24,6 +26,10 @@ public class RoomService {
         return roomRepository.findAll();
     }
 
+    public List<Room> findAllByForm(Form form) {
+        return roomRepository.findAllByForm(form);
+    }
+
     public Room findById(Long id){
         Optional<Room> room = roomRepository.findById(id);
         return room.orElse(null);
@@ -38,8 +44,12 @@ public class RoomService {
         roomRepository.save(room);
     }
 
-
     public void delete(Long id){
         roomRepository.deleteById(id);
+    }
+
+    public void update(Long id, Room updateRoom){
+        updateRoom.setId(id);
+        roomRepository.save(updateRoom);
     }
 }

@@ -10,9 +10,7 @@
 <form method="PATCH" th:action="@{/doors/saveDoor}" th:object="${door}">
     <input type="hidden" th:field="*{id}" id="id"/>
     <br>
-    <input type="hidden" th:field="*{l_shapedRoom}" id="l_shapedRoom"/>
-    <br>
-    <input type="hidden" th:field="*{rectangleRoom}" id="rectangleRoom"/>
+    <input type="hidden" th:field="*{room}" id="room"/>
     <br>
     <label for="height">Высота</label>
     <input type="number" th:field="*{height}" id="height"/>

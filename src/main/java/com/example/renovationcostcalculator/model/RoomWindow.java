@@ -1,7 +1,5 @@
 package com.example.renovationcostcalculator.model;
 
-import com.example.renovationcostcalculator.model.room.L_shapedRoom;
-import com.example.renovationcostcalculator.model.room.RectangleRoom;
 import com.example.renovationcostcalculator.model.room.Room;
 import lombok.*;
 
@@ -23,7 +21,7 @@ public class RoomWindow implements Opening{
     private double depth;
 
 
-    @ManyToOne(fetch = FetchType.LAZY)
+    @ManyToOne
     @JoinColumn(name = "room_id")
     private Room room;
 
@@ -34,7 +32,8 @@ public class RoomWindow implements Opening{
         return "Окно " + id +
                 ", ширина=" + width +
                 ", высота=" + height +
-                ", глубина=" + depth;
+                ", глубина=" + depth +
+                ", id комнаты:" + room.getId();
     }
 
     @Override

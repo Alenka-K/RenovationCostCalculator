@@ -1,14 +1,14 @@
 package com.example.renovationcostcalculator.services;
 
 
-import com.example.renovationcostcalculator.model.Door;
 import com.example.renovationcostcalculator.model.price.Price;
 import com.example.renovationcostcalculator.repositories.PriceRepository;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
-import java.util.List;
+import java.util.HashSet;
 import java.util.Optional;
+import java.util.Set;
 
 @Service
 public class PriceService {
@@ -19,27 +19,33 @@ public class PriceService {
         this.priceRepository = priceRepository;
     }
 
-    public List<Price> findAll() {
-        return priceRepository.findAll();
+    public Set<Price> findAll() {
+        Set<Price> priceSet = new HashSet<>();
+        for ( Price price : priceRepository.findAll()) {
+            priceSet.add(price);
+        }
+        return priceSet;
     }
 
-    public Price findByTypeOfConstructionWork(String typeOfConstructionWork){
-        Optional<Price> price = priceRepository.findById(typeOfConstructionWork);
+    public Price findByType(String type){
+        Optional<Price> price = priceRepository.findById(type);
         return price.orElse(null);
     }
 
-
+    @Transactional
     public void save(Price price){
         priceRepository.save(price);
     }
 
-    public void update(String typeOfConstructionWork, Price updatePrice){
-        updatePrice.setTypeOfConstructionWork(typeOfConstructionWork);
+
+    @Transactional
+    public void update(String type, Price updatePrice){
+        updatePrice.setType(type);
         priceRepository.save(updatePrice);
     }
 
     @Transactional
-    public void delete(String typeOfConstructionWork){
-        priceRepository.deleteByTypeOfConstructionWork(typeOfConstructionWork);
+    public void delete(String type){
+        priceRepository.deleteByType(type);
     }
 }

@@ -5,7 +5,7 @@
     <title>Add rectangle</title>
 </head>
 <body>
-<form method="PATCH" th:action="@{/rectangleRooms/saveRectangleRoom}" th:object="${room}">
+<form method="PATCH" th:action="@{/rooms/saveRectangleRoom}" th:object="${room}">
     <label for="name">Название</label>
     <input type="text" th:field="*{name}" id="name"/>
     <br>

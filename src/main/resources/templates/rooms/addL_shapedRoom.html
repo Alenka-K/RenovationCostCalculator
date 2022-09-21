@@ -7,7 +7,7 @@
 <body>
 
 <img width="300px" th:src="@{/images/My.png}" />
-<form method="PATCH" th:action="@{/lShapedRooms/saveL_shapedRoom}" th:object="${room}">
+<form method="PATCH" th:action="@{/rooms/saveL_shapedRoom}" th:object="${room}">
     <label for="name">Название</label>
     <input type="text" th:field="*{name}" id="name"/>
     <br>

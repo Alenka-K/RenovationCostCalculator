@@ -33,8 +33,13 @@
                             <th>Добавить/удалить проемы</th>
                             <th>Удалить комнату</th>
                         </tr>
-                        <tr th:if="${flat.getRooms}" th:each = "room : ${flat.getRooms}">
-                            <td><img width="100px" th:src="@{/images/Rectangle.jpg}"/></td>
+                        <tr th:if="${flat.getRooms}" th:each="room : ${flat.getRooms}">
+                            <td>
+                                <span th:switch="${room.form.name()}">
+                                <p th:case="'RECTANGLE'"><img th:src="@{/images/Rectangle.jpg}" width="100px"/></p>
+                                <p th:case="'L_SHAPED'"><img width="100px" th:src="@{/images/My.png}"/></p>
+                                </span>
+                            </td>
                             <td th:text="${room.name}"></td>
                             <td><span>Высота:</span><span th:text="${room.height}"></span>
                                 <br>
@@ -64,23 +69,31 @@
                                 <span>Площадь дверных откосов:</span><span th:text="${room.getDoorSlopeArea}"></span>
                                 <br>
                             </td>
-                            <td></td>
-                            <td><br>
-                                <a th:href="@{./roomWindows/addWindow/{id}/{form}(id=${room.id}, form=${room.form})}">Добавить окно</a>
+                            <td>
+                                <span th:text="${room.getPriceSet}"></span>
                                 <br>
-                                <a th:href="@{./doors/addDoor/{id}/{form}(id=${room.id}, form=${room.form})}">Добавить двери</a>
+                                <a th:href="@{./prices/addPriceSet/{id}(id=${room.id})}">Добавить прайс работ по комнате</a>
+                                <br>
+                                <a th:href="@{./prices/editPriceSet/{id}(id=${room.id})}">Изменить прайс работ по комнате</a>
+                            </td>
+                            <td>
+                                <a th:href="@{./roomWindows/addWindow/{id}(id=${room.id})}">Добавить окно</a>
+                                <br>
+                                <a th:href="@{./doors/addDoor/{id}(id=${room.id})}">Добавить двери</a>
                                 <br>
                             </td>
-                            <td><a th:href="@{./rooms/deleteRectangleRoom/{id}(id=${room.id})}">Удалить комнату</a></td>
+                            <td><a th:href="@{./rooms/deleteRoom/{id}(id=${room.id})}">Удалить комнату</a></td>
                         </tr>
                         </tbody>
                     </table>
                 </td>
-
-                <td><li><a th:href="@{./rooms/addRectangleRoom/{id}(id=${flat.getId()})}">Добавить прямоугольную комнату</a></li>
-                    <li><a th:href="@{./rooms/addL_shapedRoom/{id}(id=${flat.getId()})}">Добавить Г-образную комнату</a></li>
+                <td>
+                    <li><a th:href="@{./rooms/addRectangleRoom/{id}(id=${flat.getId()})}">Добавить прямоугольную
+                        комнату</a></li>
+                    <li><a th:href="@{./rooms/addL_shapedRoom/{id}(id=${flat.getId()})}">Добавить Г-образную комнату</a>
+                    </li>
+                    <a th:href="@{./flats/editFlat/{id}(id=${flat.getId()})}">edit</a></td>
                 </td>
-                <td><a th:href="@{./flats/editFlat/{id}(id=${flat.getId()})}">edit</a></td>
                 <td><a th:href="@{./flats/deleteFlat/{id}(id=${flat.getId()})}">delete</a></td>
 
             </tr>

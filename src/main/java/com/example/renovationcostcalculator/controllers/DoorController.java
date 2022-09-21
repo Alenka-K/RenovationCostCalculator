@@ -32,8 +32,8 @@ public class DoorController {
         return "doors/viewAllDoors";
     }
 
-    @RequestMapping("/addDoor/{id}/{form}")
-    public String addDoor(@PathVariable("id") Long id, @PathVariable("form") String form, Model model){
+    @RequestMapping("/addDoor/{id}")
+    public String addDoor(@PathVariable("id") Long id, Model model){
         Door door = new Door();
             Room room = roomService.findById(id);
             door.setRoom(roomService.findById(id));
