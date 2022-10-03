@@ -10,8 +10,10 @@ import org.springframework.transaction.annotation.Transactional;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
 
+import java.util.Comparator;
 import java.util.HashSet;
 import java.util.Set;
+import java.util.stream.Collectors;
 
 @Controller
 @RequestMapping("/prices")
@@ -32,6 +34,13 @@ public class PriceController {
         return "prices/viewAllPrices";
     }
 
+
+
+    @GetMapping("/downloadPrices")
+    public String downloadPrices(Model model){
+        model.addAttribute("prices", priceService.findAll());
+        return "prices/viewAllPrices";
+    }
 
     @GetMapping("/addPrice")
     public String addPrice(Model model){

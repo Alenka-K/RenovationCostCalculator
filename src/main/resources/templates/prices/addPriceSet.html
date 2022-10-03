@@ -7,7 +7,8 @@
     </head>
 <body>
     <h1>Прайс работ</h1>
-
+    <form th:method="PATH" th:action="@{/prices/savePriceSet}" th:object="${room}">
+        <input type="hidden" name="id" id="id" th:field="*{id}" value="*{id}">
     <table>
         <tbody>
             <tr>
@@ -15,25 +16,21 @@
                 <th>Вид работы</th>
                 <th>Цена, грн</th>
                 <th>За ед.измерения</th>
-                <th>Изменить</th>
-                <th>Удалить</th>
+                <th>Выбрать</th>
+
             </tr>
-            <tr th:each="price:${prices}">
+            <tr th:each="price:${priceSet}" >
                 <td th:text="${price.getSurface}"></td>
                 <td th:text="${price.getType}"></td>
                 <td th:text="${price.getAmount}"></td>
                 <td th:text="${price.getUnit}"></td>
-                <td><a th:href="@{./prices/updatePrice/{id}(id=${price.getType})}">edit</a></td>
-                <td><a th:href="@{./prices/deletePrice/{id}(id=${price.getType})}">delete</a></td>
-
+                <td><input type="checkbox"  name="priceIds" th:value="${price.getType}" /></td>
             </tr>
-            <div><li><a href="/prices/downloadPrices">Загрузить прайс</a></li></div>
-
         </tbody>
+        <input type="submit" value="Добавить виды работ по комнате"/>
     </table>
+    </form>
 
-
-    <div><li><a th:href="@{./prices/addPrice}">Добавить</a></li></div>
 
 </body>
 </html>

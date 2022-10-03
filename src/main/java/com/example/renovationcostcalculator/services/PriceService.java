@@ -2,13 +2,14 @@ package com.example.renovationcostcalculator.services;
 
 
 import com.example.renovationcostcalculator.model.price.Price;
+import com.example.renovationcostcalculator.model.price.Surface;
 import com.example.renovationcostcalculator.repositories.PriceRepository;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
-import java.util.HashSet;
-import java.util.Optional;
-import java.util.Set;
+import java.util.*;
+import java.util.stream.Collectors;
+import java.util.stream.Stream;
 
 @Service
 public class PriceService {
@@ -19,12 +20,10 @@ public class PriceService {
         this.priceRepository = priceRepository;
     }
 
-    public Set<Price> findAll() {
-        Set<Price> priceSet = new HashSet<>();
-        for ( Price price : priceRepository.findAll()) {
-            priceSet.add(price);
-        }
-        return priceSet;
+    public List<Price> findAll() {
+        Set<Price> priceSet = new HashSet<>(priceRepository.findAll());
+        priceSet.stream().sorted(Comparator.comparing(Price::getSurface)).collect(Collectors.toList());
+        return priceSet.stream().sorted(Comparator.comparing(Price::getSurface)).collect(Collectors.toList());
     }
 
     public Price findByType(String type){

@@ -5,7 +5,6 @@ import com.example.renovationcostcalculator.model.room.Room;
 import lombok.*;
 
 import javax.persistence.*;
-import java.util.HashSet;
 import java.util.Set;
 
 
@@ -21,6 +20,9 @@ public class Price {
     @Id
     @Column(name = "type", nullable = false)
     private String type;
+
+    @Enumerated(EnumType.STRING)
+    private Surface surface;
 
 
     private int amount;

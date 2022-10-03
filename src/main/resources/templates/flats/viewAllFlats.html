@@ -70,7 +70,7 @@
                                 <br>
                             </td>
                             <td>
-                                <span th:text="${room.getPriceSet}"></span>
+                                <li th:each="price:${room.getPriceSet}" th:text="${price}"></li>
                                 <br>
                                 <a th:href="@{./prices/addPriceSet/{id}(id=${room.id})}">Добавить прайс работ по комнате</a>
                                 <br>

@@ -7,6 +7,14 @@
 <body>
 <h2>Добавте вид работ в прайс-лист</h2>
 <form th:method="post" th:action="@{/prices}" th:object="${price}">
+    <label for="surface">Выберите группу поверхностей</label>
+        <select type="text" th:field="*{surface}" id="surface">
+            <option th:each="surface : ${T(com.example.renovationcostcalculator.model.price.Surface).values()}"
+                    th:value="${surface}"
+                    th:text="${surface}">
+            </option>
+        </select>
+        <br>
     <label for="type">Вид работы</label>
     <input type="text" th:field="*{type}" id="type"/>
     <br>
