@@ -34,6 +34,13 @@ public class PriceController {
         return "prices/viewAllPrices";
     }
 
+    @GetMapping("/getPricesOfRoom/{id}")
+    public String getPricesOfRoom(@PathVariable("id") Long id, Model model){
+        model.addAttribute("prices", priceService.findAllByRoomsIsContaining(roomService.findById(id)));
+        return "prices/viewAllPrices";
+    }
+
+
 
 
     @GetMapping("/downloadPrices")

@@ -31,6 +31,7 @@ public class RectangleRoom extends Room {
 
     @Override
     public double getCeilingArea() {
+
         return length*width/1000000;
     }
 

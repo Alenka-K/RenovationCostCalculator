@@ -51,6 +51,7 @@ public abstract class Room {
 //    private List<Price> priceSet;
 
 
+
     public double getWallsArea(){
         double area = this.getFloorPerimeter()*(height/1000);
         if (!roomWindows.isEmpty()){

@@ -29,6 +29,9 @@ public class Price {
 
     private String unit;
 
+    @ManyToMany(cascade = CascadeType.PERSIST, fetch = FetchType.LAZY)
+    private Set<Room> roomSet;
+
 
     @ManyToMany(fetch = FetchType.LAZY, cascade = CascadeType.PERSIST)
     @JoinTable(

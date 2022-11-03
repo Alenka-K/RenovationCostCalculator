@@ -3,6 +3,7 @@ package com.example.renovationcostcalculator.services;
 
 import com.example.renovationcostcalculator.model.price.Price;
 import com.example.renovationcostcalculator.model.price.Surface;
+import com.example.renovationcostcalculator.model.room.Room;
 import com.example.renovationcostcalculator.repositories.PriceRepository;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
@@ -29,6 +30,11 @@ public class PriceService {
     public Price findByType(String type){
         Optional<Price> price = priceRepository.findById(type);
         return price.orElse(null);
+    }
+
+    public List<Price> findAllByRoomsIsContaining(Room room) {
+        List<Price> prices = priceRepository.findAllByRoomsIsContaining(room);
+        return prices;
     }
 
     @Transactional
