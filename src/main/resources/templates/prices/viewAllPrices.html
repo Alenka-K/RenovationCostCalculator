@@ -27,13 +27,13 @@
                 <td><a th:href="@{./prices/deletePrice/{id}(id=${price.getType})}">delete</a></td>
 
             </tr>
-            <div><li><a href="/prices/downloadPrices">Загрузить прайс</a></li></div>
+            <div><a href="/prices/downloadPrices">Загрузить прайс</a></div>
 
         </tbody>
     </table>
 
 
     <div><li><a th:href="@{./prices/addPrice}">Добавить</a></li></div>
-
+    <div><li><a th:href="@{/flats}">Вернуться к информации по объектам</a></li></div>
 </body>
 </html>

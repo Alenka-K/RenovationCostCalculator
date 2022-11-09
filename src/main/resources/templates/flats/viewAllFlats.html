@@ -6,6 +6,7 @@
         <link rel="stylesheet" type="text/css" th:href="@{/style.css}"/>
     </head>
 <body>
+<div><li><a href="/prices">Посмотреть прайс</a></li></div>
     <h1>Список обьектов</h1>
 
     <table>
@@ -70,16 +71,14 @@
                                 <br>
                             </td>
                             <td>
-                                <span th:text="${room.getPriceSet}"></span>
+
                                 <ul id="list">
                                 <li th:each="price:${room.getPriceSet}" th:text="${price}"></li>
                                 </ul>
                                 <br>
                                 <a th:href="@{./prices/addPriceSet/{id}(id=${room.id})}">Добавить прайс работ по комнате</a>
                                 <br>
-                                <a th:href="@{./prices/getPricesOfRoom/{id}(id=${room.id})}">прайс работ по комнате</a>
-                                <br>
-                                <a th:href="@{./prices/editPriceSet/{id}(id=${room.id})}">Изменить прайс работ по комнате</a>
+                                <a th:href="@{./prices/editPriceSet/{id}(id=${room.id})}">Просмотреть или изменить прайс работ по комнате</a>
                             </td>
                             <td>
                                 <a th:href="@{./roomWindows/addWindow/{id}(id=${room.id})}">Добавить окно</a>

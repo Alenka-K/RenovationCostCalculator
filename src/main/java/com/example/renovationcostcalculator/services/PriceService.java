@@ -23,7 +23,7 @@ public class PriceService {
 
     public List<Price> findAll() {
         Set<Price> priceSet = new HashSet<>(priceRepository.findAll());
-        priceSet.stream().sorted(Comparator.comparing(Price::getSurface)).collect(Collectors.toList());
+
         return priceSet.stream().sorted(Comparator.comparing(Price::getSurface)).collect(Collectors.toList());
     }
 

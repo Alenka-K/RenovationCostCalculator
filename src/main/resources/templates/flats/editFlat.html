@@ -6,7 +6,9 @@
     <title>Обновить данные</title>
 </head>
 <body>
-<form th:method="patch" th:action="@{/flats/editFlat}" th:object="${flat}">
+<form th:method="patch" th:action="@{/flats/updateFlat/{id}(id=${flat.id})}" th:object="${flat}">
+    <input type="text" hidden th:field="*{id}" id="id"/>
+    <br>
     <label for="address">Адресс</label>
     <input type="text" th:field="*{address}" id="address"/>
     <br>
