@@ -23,7 +23,7 @@ public class Flat {
     private String address;
 
 
-    @OneToMany(cascade = CascadeType.ALL, fetch = FetchType.EAGER, mappedBy = "flat")
+    @OneToMany(cascade = CascadeType.MERGE, fetch = FetchType.EAGER, mappedBy = "flat")
     private List<Room> rooms;
 
 

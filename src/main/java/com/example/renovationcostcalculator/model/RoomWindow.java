@@ -21,7 +21,7 @@ public class RoomWindow implements Opening{
     private double depth;
 
 
-    @ManyToOne
+    @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "room_id")
     private Room room;
 
@@ -29,11 +29,10 @@ public class RoomWindow implements Opening{
 
     @Override
     public String toString() {
-        return "Окно " + id +
-                ", ширина=" + width +
+        return
+                "(ширина=" + width +
                 ", высота=" + height +
-                ", глубина=" + depth +
-                ", id комнаты:" + room.getId();
+                ", глубина=" + depth + ")";
     }
 
     @Override

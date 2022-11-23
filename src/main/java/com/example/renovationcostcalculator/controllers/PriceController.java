@@ -13,6 +13,7 @@ import org.springframework.web.bind.annotation.*;
 import java.util.Comparator;
 import java.util.HashSet;
 import java.util.Set;
+import java.util.TreeSet;
 import java.util.stream.Collectors;
 
 @Controller
@@ -101,12 +102,12 @@ public class PriceController {
     @RequestMapping("/editPrice/{type}")
     public String editPrice(@PathVariable("type") String type, Model model) {
         model.addAttribute("price", priceService.findByType(type));
-        return "flats/editFlat";
+        return "prices/editPrice";
     }
 
     // не доработан
-    @RequestMapping("/updatePrice/{id}")
-    public String updatePrice(@PathVariable("id") String type, @ModelAttribute("price") Price price) {
+    @RequestMapping("/updatePrice/{type}")
+    public String updatePrice(@PathVariable("type") String type, @ModelAttribute("price") Price price) {
         priceService.update(type, price);
         return "redirect:/prices";
     }

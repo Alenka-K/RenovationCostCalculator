@@ -1,8 +1,10 @@
 package com.example.renovationcostcalculator.model.room;
 
+import com.example.renovationcostcalculator.model.Door;
 import com.example.renovationcostcalculator.model.Form;
 import lombok.*;
 import javax.persistence.*;
+import java.util.List;
 
 
 @Entity
@@ -37,9 +39,22 @@ public class L_shapedRoom  extends Room {
     }
 
     @Override
-    public double getFloorPerimeter() {
+    double getCeilingPerimeter() {
+        return (length+width)*2 /1000;
+    }
 
-        return length+width/1000;
+
+    @Override
+    public double getFloorPerimeter() {
+        List<Door> doors = super.getDoors();
+        double temp = 0;
+        if (!doors.isEmpty()){
+            for (Door door : doors) {
+                temp = temp + door.getWidth();
+            }
+        }
+
+        return (((length+width)*2) - temp)/1000;
     }
 
 

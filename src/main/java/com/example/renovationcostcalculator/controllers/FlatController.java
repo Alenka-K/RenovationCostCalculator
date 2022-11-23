@@ -65,13 +65,6 @@ public class FlatController  {
         flatService.delete(id);
         return "redirect:/flats";
     }
-    @RequestMapping("/calculateFlat/{id}")
-    public String calculateFlat(@PathVariable("id") Long id) {
-        Flat flat = flatService.findById(id);
-        for (Room room : flat.getRooms()) {
 
-        }
-        return "redirect:/flats";
-    }
 
 }

@@ -6,6 +6,7 @@ import com.example.renovationcostcalculator.model.Flat;
 import com.example.renovationcostcalculator.repositories.FlatRepository;
 import org.springframework.stereotype.Service;
 
+import javax.transaction.Transactional;
 import java.util.List;
 import java.util.Optional;
 
@@ -23,21 +24,23 @@ public class FlatService {
     }
 
     public Flat findById(Long id){
-        Optional<Flat> flat = flatRepository.findById(id);
-        return flat.orElse(null);
+        return flatRepository.findById(id).orElse(null);
     }
 
-
+    @Transactional
     public void save(Flat flat){
         flatRepository.save(flat);
     }
 
+    @Transactional
     public void update(Long id, Flat updateFlat){
         updateFlat.setId(id);
         flatRepository.save(updateFlat);
     }
 
+    @Transactional
     public void delete(Long id){
+
         flatRepository.deleteById(id);
     }
 }

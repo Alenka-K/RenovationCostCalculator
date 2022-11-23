@@ -5,8 +5,10 @@ import com.example.renovationcostcalculator.model.Flat;
 import com.example.renovationcostcalculator.model.Form;
 import com.example.renovationcostcalculator.model.room.Room;
 import com.example.renovationcostcalculator.repositories.RoomRepository;
+import org.hibernate.result.Output;
 import org.springframework.stereotype.Service;
 
+import javax.transaction.Transactional;
 import java.util.List;
 import java.util.Optional;
 
@@ -31,23 +33,25 @@ public class RoomService {
     }
 
     public Room findById(Long id){
-        Optional<Room> room = roomRepository.findById(id);
-        return room.orElse(null);
+
+        return roomRepository.findById(id).orElse(null);
     }
     public List<Room> findAllByFlat_ID(Long id) {
 
         return roomRepository.findAllByFlat_Id(id);
     }
 
-
+    @Transactional
     public void save(Room room) {
         roomRepository.save(room);
     }
 
+    @Transactional
     public void delete(Long id){
         roomRepository.deleteById(id);
-    }
 
+    }
+    @Transactional
     public void update(Long id, Room updateRoom){
         updateRoom.setId(id);
         roomRepository.save(updateRoom);

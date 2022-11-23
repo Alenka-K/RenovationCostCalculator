@@ -1,0 +1,22 @@
+table, th, td {
+    border: 2px solid chocolate;
+    background: antiquewhite;
+}
+.winRoom {
+    width: 50px;
+    height: 50px;
+    border-radius: 5px;
+    border:
+            3px       /* width */
+            solid     /* style */
+            coral;
+}
+.doorsRoom {
+    width: 40px;
+    height: 70px;
+    border-radius: 5px;
+    border:
+            3px       /* width */
+            solid     /* style */
+            coral;
+}

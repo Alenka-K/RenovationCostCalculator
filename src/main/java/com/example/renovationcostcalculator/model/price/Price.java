@@ -29,15 +29,8 @@ public class Price {
 
     private String unit;
 
-    @ManyToMany(cascade = CascadeType.PERSIST, fetch = FetchType.LAZY)
-    private Set<Room> roomSet;
 
-
-    @ManyToMany(fetch = FetchType.LAZY, cascade = CascadeType.PERSIST)
-    @JoinTable(
-            name = "price_room",
-            joinColumns = @JoinColumn(name = "price_type"),
-            inverseJoinColumns = @JoinColumn(name = "room_id"))
+    @ManyToMany(fetch = FetchType.LAZY, mappedBy = "priceSet")
     private Set<Room> rooms;
 
     @Override

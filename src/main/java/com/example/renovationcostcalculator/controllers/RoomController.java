@@ -10,6 +10,8 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
 
+import javax.transaction.Transactional;
+
 @Controller
 @RequestMapping("/rooms")
 public class RoomController {
@@ -43,9 +45,13 @@ public class RoomController {
         return "redirect:/flats";
     }
 
+    @Transactional
     @RequestMapping("/deleteRoom/{id}")
     public String deleteRoom(@PathVariable("id") Long id) {
+        System.out.println(id);
+        System.out.println(roomService.findById(id));
         roomService.delete(id);
+        System.out.println(roomService.findAll());
         return "redirect:/flats";
     }
 

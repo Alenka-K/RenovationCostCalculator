@@ -16,5 +16,6 @@ public interface PriceRepository extends JpaRepository<Price, String> {
 
     List<Price> findAllByRoomsIsContaining(Room room);
 
+
     Price findByType(String type);
 }

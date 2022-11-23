@@ -7,6 +7,7 @@ import com.example.renovationcostcalculator.model.Form;
 import com.example.renovationcostcalculator.model.RoomWindow;
 
 import com.example.renovationcostcalculator.model.price.Price;
+import com.example.renovationcostcalculator.model.price.Surface;
 import lombok.EqualsAndHashCode;
 import lombok.Getter;
 import lombok.Setter;
@@ -39,16 +40,18 @@ public abstract class Room {
     private List<Door> doors = new ArrayList<>();
 
 
-    @ManyToMany(cascade = CascadeType.PERSIST, fetch = FetchType.LAZY, mappedBy = "rooms")
+    @ManyToMany(cascade = CascadeType.PERSIST, fetch = FetchType.LAZY)
+    @JoinTable(
+            name = "room_price",
+            joinColumns = @JoinColumn(name = "price_type"),
+            inverseJoinColumns = @JoinColumn(name = "room_id"))
     private Set<Price> priceSet;
 
 
-    @ManyToOne(fetch = FetchType.EAGER)
+    @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "flat_id")
     private Flat flat;
-
-//    @OneToMany(cascade = CascadeType.ALL, fetch = FetchType.EAGER, mappedBy = "room")
-//    private List<Price> priceSet;
+    
 
 
 
@@ -64,10 +67,14 @@ public abstract class Room {
                 area = area - door.area();
             }
         }
+
         return area;
     };
     abstract double getFloorArea();
     abstract double getCeilingArea();
+
+    abstract double getCeilingPerimeter();
+
     abstract double getFloorPerimeter();
     public double getSlopeArea(){
         return this.getDoorSlopeArea()+this.getWindowSlopeArea();
@@ -92,8 +99,42 @@ public abstract class Room {
         return doorSlopeArea;
     }
 
+    public HashMap<Price, Double> getCalculateRoom(){
+        HashMap<Price, Double> costAllOfWorkOnRoom = new HashMap<>();
+        for (Price price: priceSet) {
+            if (price.getSurface() == Surface.WALL & price.getUnit().equals("м2")) {
+                double costPerRoom = getWallsArea() * price.getAmount();
+                costAllOfWorkOnRoom.put(price, costPerRoom);
+            }
+            if (price.getSurface() == Surface.FLOOR & price.getUnit().equals("мп")) {
+                double costPerRoom = getFloorPerimeter() * price.getAmount();
+                costAllOfWorkOnRoom.put(price, costPerRoom);
+            }
+            if (price.getSurface() == Surface.FLOOR & price.getUnit().equals("м2")) {
+                double costPerRoom = getFloorArea() * price.getAmount();
+                costAllOfWorkOnRoom.put(price, costPerRoom);
+            }
+            if (price.getSurface() == Surface.CEILING & price.getUnit().equals("м2")) {
+                double costPerRoom = getCeilingArea() * price.getAmount();
+                costAllOfWorkOnRoom.put(price, costPerRoom);
+            }
+            if (price.getSurface() == Surface.CEILING & price.getUnit().equals("мп")) {
+                double costPerRoom = getCeilingPerimeter() * price.getAmount();
+                costAllOfWorkOnRoom.put(price, costPerRoom);
+            }
+        }
+
+        return costAllOfWorkOnRoom;
+    }
+
+    public Double getAllCost(){
+        return getCalculateRoom().values().stream().mapToDouble(Double::doubleValue).sum();
+    }
+
     @Override
     public String toString() {
+
+
         return "Room{" +
                 "id=" + id +
                 ", name='" + name + '\'' +

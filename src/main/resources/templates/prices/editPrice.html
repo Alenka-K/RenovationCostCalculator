@@ -6,7 +6,7 @@
     <title>Обновить данные</title>
 </head>
 <body>
-<form th:method="patch" th:action="@{/prices/editPrice}" th:object="${price}">
+<form th:method="patch" th:action="@{/prices/updatePrice/{type}(type=${price.type})}" th:object="${price}">
     <label for="surface">Выберите группу поверхностей</label>
     <select type="text" th:field="*{surface}" id="surface">
         <option th:each="surface : ${T(com.example.renovationcostcalculator.model.price.Surface).values()}"
@@ -16,7 +16,7 @@
     </select>
     <br>
     <label for="type">Вид работы</label>
-    <input type="text" th:field="*{type}" id="type"/>
+    <input type="text" readonly th:field="*{type}" id="type"/>
     <br>
     <label for="amount">Цена
         <input type="text" th:field="*{amount}" id="amount"/>грн за </label>
