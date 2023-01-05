@@ -99,28 +99,30 @@ public abstract class Room {
         return doorSlopeArea;
     }
 
-    public HashMap<Price, Double> getCalculateRoom(){
-        HashMap<Price, Double> costAllOfWorkOnRoom = new HashMap<>();
+    public TreeMap<Price, Double> getCalculateRoom(){
+        TreeMap<Price, Double> costAllOfWorkOnRoom = new TreeMap<>();
         for (Price price: priceSet) {
             if (price.getSurface() == Surface.WALL & price.getUnit().equals("м2")) {
-                double costPerRoom = getWallsArea() * price.getAmount();
-                costAllOfWorkOnRoom.put(price, costPerRoom);
+
+                double costPerRoom = this.getWallsArea() * price.getAmount();
+                System.out.println(this.getWallsArea() + "  " + price.getAmount() + "  " + costPerRoom);
+                costAllOfWorkOnRoom.put(price, Math.ceil(costPerRoom));
             }
             if (price.getSurface() == Surface.FLOOR & price.getUnit().equals("мп")) {
-                double costPerRoom = getFloorPerimeter() * price.getAmount();
-                costAllOfWorkOnRoom.put(price, costPerRoom);
+                double costPerRoom = this.getFloorPerimeter() * price.getAmount();
+                costAllOfWorkOnRoom.put(price, Math.ceil(costPerRoom));
             }
             if (price.getSurface() == Surface.FLOOR & price.getUnit().equals("м2")) {
-                double costPerRoom = getFloorArea() * price.getAmount();
-                costAllOfWorkOnRoom.put(price, costPerRoom);
+                double costPerRoom = this.getFloorArea() * price.getAmount();
+                costAllOfWorkOnRoom.put(price, Math.ceil(costPerRoom));
             }
             if (price.getSurface() == Surface.CEILING & price.getUnit().equals("м2")) {
                 double costPerRoom = getCeilingArea() * price.getAmount();
-                costAllOfWorkOnRoom.put(price, costPerRoom);
+                costAllOfWorkOnRoom.put(price, Math.ceil(costPerRoom));
             }
             if (price.getSurface() == Surface.CEILING & price.getUnit().equals("мп")) {
                 double costPerRoom = getCeilingPerimeter() * price.getAmount();
-                costAllOfWorkOnRoom.put(price, costPerRoom);
+                costAllOfWorkOnRoom.put(price, Math.ceil(costPerRoom));
             }
         }
 

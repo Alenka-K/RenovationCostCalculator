@@ -3,8 +3,10 @@ package com.example.renovationcostcalculator.model.price;
 
 import com.example.renovationcostcalculator.model.room.Room;
 import lombok.*;
+import org.hibernate.Hibernate;
 
 import javax.persistence.*;
+import java.util.Objects;
 import java.util.Set;
 
 
@@ -15,7 +17,7 @@ import java.util.Set;
 @AllArgsConstructor
 @EqualsAndHashCode
 @Table(name = "PRICE")
-public class Price {
+public class Price implements Comparable<Price>{
 
     @Id
     @Column(name = "type", nullable = false)
@@ -37,5 +39,11 @@ public class Price {
     public String toString() {
         return type + " (" +
                 amount + "грн/" + unit + ")" + "\r\n";
+    }
+
+    @Override
+    public int compareTo(Price o) {
+        return o.getType().compareTo(type);
+
     }
 }
