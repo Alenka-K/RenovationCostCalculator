@@ -14,7 +14,6 @@ import lombok.Setter;
 
 import javax.persistence.*;
 import java.util.*;
-import java.util.stream.Collectors;
 
 @Entity
 @Getter
@@ -69,7 +68,7 @@ public abstract class Room {
         }
 
         return area;
-    };
+    }
     abstract double getFloorArea();
     abstract double getCeilingArea();
 
@@ -105,7 +104,6 @@ public abstract class Room {
             if (price.getSurface() == Surface.WALL & price.getUnit().equals("м2")) {
 
                 double costPerRoom = this.getWallsArea() * price.getAmount();
-                System.out.println(this.getWallsArea() + "  " + price.getAmount() + "  " + costPerRoom);
                 costAllOfWorkOnRoom.put(price, Math.ceil(costPerRoom));
             }
             if (price.getSurface() == Surface.FLOOR & price.getUnit().equals("мп")) {

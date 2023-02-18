@@ -1,19 +1,23 @@
 package com.example.renovationcostcalculator.model;
 
-import com.example.renovationcostcalculator.model.room.L_shapedRoom;
-import com.example.renovationcostcalculator.model.room.RectangleRoom;
+import com.example.renovationcostcalculator.model.price.Price;
 import com.example.renovationcostcalculator.model.room.Room;
 import lombok.AllArgsConstructor;
+import lombok.EqualsAndHashCode;
 import lombok.NoArgsConstructor;
 import lombok.ToString;
 
 import javax.persistence.*;
 import java.util.List;
+import java.util.Set;
+import java.util.TreeMap;
 
 
 @Entity
 @NoArgsConstructor
 @AllArgsConstructor
+@EqualsAndHashCode
+@ToString
 @Table(name = "FLAT")
 public class Flat {
     @Id
@@ -21,6 +25,25 @@ public class Flat {
     private Long id;
 
     private String address;
+    private String customerName;
+
+    public String getCustomerName() {
+        return customerName;
+    }
+
+    public void setCustomerName(String customerName) {
+        this.customerName = customerName;
+    }
+
+    public String getCustomerPhone() {
+        return customerPhone;
+    }
+
+    public void setCustomerPhone(String customerPhone) {
+        this.customerPhone = customerPhone;
+    }
+
+    private String customerPhone;
 
 
     @OneToMany(cascade = CascadeType.MERGE, fetch = FetchType.EAGER, mappedBy = "flat")
@@ -51,32 +74,24 @@ public class Flat {
         this.rooms = rooms;
     }
 
-    @Override
-    public boolean equals(Object o) {
-        if (this == o) return true;
-        if (o == null || getClass() != o.getClass()) return false;
 
-        Flat flat = (Flat) o;
-
-        if (id != null ? !id.equals(flat.id) : flat.id != null) return false;
-        if (address != null ? !address.equals(flat.address) : flat.address != null) return false;
-        return rooms != null ? rooms.equals(flat.rooms) : flat.rooms == null;
+    public TreeMap<Price, Double> getCalculateFlat() {
+        TreeMap<Price, Double> costAllOfWorkOnFlat = new TreeMap<>();
+        for (Room room : rooms ){
+            TreeMap<Price, Double> costAllOfWorkOnRoom = room.getCalculateRoom();
+            Set<Price> prices = costAllOfWorkOnRoom.keySet();
+            for (Price price: prices) {
+                if (costAllOfWorkOnFlat.containsKey(price)) {
+                    Double value = costAllOfWorkOnFlat.get(price) + costAllOfWorkOnRoom.get(price);
+                    costAllOfWorkOnFlat.put(price, value);
+                }else {
+                    costAllOfWorkOnFlat.put(price, costAllOfWorkOnRoom.get(price));
+                }
+            }
+        }
+        return costAllOfWorkOnFlat;
     }
-
-    @Override
-    public int hashCode() {
-        int result = id != null ? id.hashCode() : 0;
-        result = 31 * result + (address != null ? address.hashCode() : 0);
-        result = 31 * result + (rooms != null ? rooms.hashCode() : 0);
-        return result;
-    }
-
-    @Override
-    public String toString() {
-        return "Flat{" +
-                "id=" + id +
-                ", address='" + address + '\'' +
-                ", rooms=" + rooms +
-                '}';
+    public Double getAllCost(){
+        return getCalculateFlat().values().stream().mapToDouble(Double::doubleValue).sum();
     }
 }

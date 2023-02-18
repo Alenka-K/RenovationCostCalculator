@@ -9,12 +9,10 @@ import org.springframework.stereotype.Controller;
 import org.springframework.transaction.annotation.Transactional;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
-
-import java.util.Comparator;
+import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 import java.util.HashSet;
 import java.util.Set;
-import java.util.TreeSet;
-import java.util.stream.Collectors;
+
 
 @Controller
 @RequestMapping("/prices")
@@ -60,10 +58,13 @@ public class PriceController {
 
     @Transactional
     @RequestMapping("/savePriceSet")
-    public String savePriceSet(@RequestParam(value = "priceIds", required = false) String[] priceIds, @RequestParam(value = "id")Long id){
-        if(!roomService.findById(id).getPriceSet().isEmpty()) {
-            for (Price price : roomService.findById(id).getPriceSet()) {
-                price.getRooms().remove(roomService.findById(id));
+    public String savePriceSet(@RequestParam(value = "priceIds", required = false) String[] priceIds,
+                               @RequestParam(value = "id") Long id,
+                               RedirectAttributes redirectAttributes){
+        Room room = roomService.findById(id);
+        if(!room.getPriceSet().isEmpty()) {
+            for (Price price : room.getPriceSet()) {
+                price.getRooms().remove(room);
             }
         }
         Set<Price> priceSet = new HashSet<>();
@@ -73,8 +74,8 @@ public class PriceController {
             priceService.findByType(price1).getRooms().add(roomService.findById(id));
         }
         roomService.findById(id).setPriceSet(priceSet);
-
-        return "redirect:/flats";
+        redirectAttributes.addAttribute("flatId", room.getFlat().getId());
+        return "redirect:/flats/viewFlat/{flatId}";
     }
 
 

@@ -11,6 +11,7 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 import java.util.List;
 
@@ -43,13 +44,16 @@ public class WindowController {
                 roomService.findById(id).setRoomWindows(list);
 
         model.addAttribute("roomWindow", roomWindow);
+
         return "roomWindows/addWindow";
     }
 
     @RequestMapping("saveWindow")
-    public String saveWindow(@ModelAttribute("roomWindow") RoomWindow roomWindow){
+    public String saveWindow(@ModelAttribute("roomWindow") RoomWindow roomWindow, RedirectAttributes redirectAttributes){
         roomWindowService.save(roomWindow);
-        return "redirect:/flats";
+        Long flatId = roomWindow.getRoom().getFlat().getId();
+        redirectAttributes.addAttribute("flatId", flatId);
+        return "redirect:/flats/viewFlat/{flatId}";
     }
 
 }

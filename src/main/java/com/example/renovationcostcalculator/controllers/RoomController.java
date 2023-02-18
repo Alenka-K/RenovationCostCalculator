@@ -9,6 +9,7 @@ import com.example.renovationcostcalculator.services.RoomService;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
+import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 import javax.transaction.Transactional;
 
@@ -40,19 +41,19 @@ public class RoomController {
     }
 
     @RequestMapping("saveRectangleRoom")
-    public String saveRectangleRoom(@ModelAttribute("room") RectangleRoom rectangleRoom){
+    public String saveRectangleRoom(@ModelAttribute("room") RectangleRoom rectangleRoom, RedirectAttributes redirectAttributes){
         roomService.save(rectangleRoom);
-        return "redirect:/flats";
+        redirectAttributes.addAttribute("id", rectangleRoom.getFlat().getId());
+        return "redirect:/flats/viewFlat/{id}";
     }
 
     @Transactional
     @RequestMapping("/deleteRoom/{id}")
-    public String deleteRoom(@PathVariable("id") Long id) {
-        System.out.println(id);
-        System.out.println(roomService.findById(id));
+    public String deleteRoom(@PathVariable("id") Long id, RedirectAttributes redirectAttributes) {
+        redirectAttributes.addAttribute("id", roomService.findById(id).getFlat().getId());
         roomService.delete(id);
-        System.out.println(roomService.findAll());
-        return "redirect:/flats";
+
+        return "redirect:/flats/viewFlat/{id}";
     }
 
     @RequestMapping("/addL_shapedRoom/{id}")
@@ -64,9 +65,10 @@ public class RoomController {
     }
 
     @RequestMapping("saveL_shapedRoom")
-    public String saveL_shapedRoom(@ModelAttribute("room") L_shapedRoom l_shapedRoom){
+    public String saveL_shapedRoom(@ModelAttribute("room") L_shapedRoom l_shapedRoom, RedirectAttributes redirectAttributes){
         roomService.save(l_shapedRoom);
-        return "redirect:/flats";
+        redirectAttributes.addAttribute("id", l_shapedRoom.getFlat().getId());
+        return "redirect:/flats/viewFlat/{id}";
     }
 
 

@@ -6,124 +6,23 @@
         <link rel="stylesheet" type="text/css" th:href="@{/css/style.css}"/>
     </head>
 <body>
-<div><li><a href="/prices">Посмотреть прайс</a></li></div>
-    <h1>Список обьектов</h1>
+    <h1>Список объектов</h1>
 
     <table>
         <tbody>
             <tr>
                 <th>Адресс</th>
-                <th>Список комнат</th>
-                <th>Добавить комнату</th>
+                <th>ФИО заказчика</th>
+                <th>Телефон для связи</th>
                 <th>Изменить</th>
                 <th>Удалить</th>
             </tr>
             <tr th:each="flat:${flats}">
                 <td><a th:href="@{./flats/viewFlat/{id}(id=${flat.getId()})}" th:text="${flat.getAddress}">Адресс</a></td>
+                <td><a th:text="${flat.getCustomerName}">ФИО заказчика</a></td>
+                <td><a th:text="${flat.getCustomerPhone}">Телефон для связи</a></td>
                 <td>
-                    <table bgcolor="#f0ffff">
-                        <tbody>
-                        <tr>
-                            <th>Форма комнаты</th>
-                            <th>Название комнаты</th>
-                            <th>Данные комнаты</th>
-                            <th>Расчёты комнаты</th>
-                            <th>Прайс работ по комнате</th>
-                            <th>Калькуляция по комнате</th>
-                            <th>Добавить/удалить проемы</th>
-                            <th>Удалить комнату</th>
-                        </tr>
-                        <tr th:if="${flat.getRooms}" th:each="room : ${flat.getRooms}">
-                            <td>
-                                <span th:switch="${room.form.name()}">
-                                <p th:case="'RECTANGLE'"><img th:src="@{/images/Rectangle.jpg}" width="100px"/></p>
-                                <p th:case="'L_SHAPED'"><img width="100px" th:src="@{/images/My.png}"/></p>
-                                </span>
-                            </td>
-                            <td th:text="${room.name}"></td>
-                            <td><span>Высота:</span><span th:text="${room.height}"></span>
-                                <br>
-                                <span>Ширина:</span><span th:text="${room.width}"></span>
-                                <br>
-                                <span>Длинна:</span><span th:text="${room.length}"></span>
-                                <br>
-                                <span th:switch="${room.form.name()}">
-                                <p th:case="'L_SHAPED'">
-                                    <span>Меньшая ширина:</span><span th:text="${room.widthSmall}"></span>
-                                    <br>
-                                    <span>Меньшая длинна:</span><span th:text="${room.lengthSmall}"></span>
-                                    <br>
-                                </p>
-                                </span>
-                                <br>
-                                <span>Окна:</span><span th:text="${room.getRoomWindows}"></span>
-                                <br>
-                                <span>Двери:</span><span th:text="${room.getDoors}"></span>
-                            </td>
-                            <td style="white-space: nowrap">
-                                <span>Площадь :</span>
-                                <br>
-                                <span>- пола: </span><span th:text="${room.getFloorArea}"></span>
-                                <br>
-                                <span>- потолка: </span><span th:text="${room.getCeilingArea}"></span>
-                                <br>
-                                <span>- стен: </span><span th:text="${room.getWallsArea}"></span>
-                                <br>
-                                <span>- оконных откосов:</span><span th:text="${room.getWindowSlopeArea}"></span>
-                                <br>
-                                <span>- дверных откосов: </span><span th:text="${room.getDoorSlopeArea}"></span>
-                                <br>
-                                <span>Периметр пола: </span><span th:text="${room.getFloorPerimeter}"></span>
-                                <br>
-                            </td>
-                            <td>
-
-                                <li th:each="price:${room.getPriceSet}" th:text="${price}"></li>
-                                <br>
-                                <a th:href="@{./prices/addPriceSet/{id}(id=${room.id})}">Добавить прайс работ по комнате</a>
-                                <br>
-                                <a th:href="@{./prices/editPriceSet/{id}(id=${room.id})}">Просмотреть или изменить прайс работ по комнате</a>
-                            </td>
-                            <td>
-                                <table>
-                                    <tbody>
-                                    <tr>
-                                        <th>Поверхность</th>
-                                        <th>Вид работы</th>
-                                        <th>Сумма за комнату</th>
-                                    </tr>
-                                    <tr th:each="set :${room.getCalculateRoom()}">
-                                        <td th:text="${set.getKey().getSurface()}"></td>
-                                        <td th:text="${set.getKey().getType()}"></td>
-                                        <td th:text="${set.getValue()} + ' грн'"></td>
-
-                                    </tr>
-                                    <tr>
-                                        <td colspan="2">ИТОГО:</td>
-                                        <td th:text="${room.getAllCost}"></td></tr>
-                                    </tbody>
-                                </table>
-                            </td>
-                            <td><span>Добавить:</span>
-                                <br>
-                                <a th:href="@{./roomWindows/addWindow/{id}(id=${room.id})}" title="Окно"><img th:src="@{/images/win_1.jpg}" class="winRoom" alt="Окно"/></a>
-                                <br>
-                                <a th:href="@{./doors/addDoor/{id}(id=${room.id})}" title="Двери"><img th:src="@{/images/door_1.jpg}" class="doorsRoom" alt="Двери"/></a>
-                                <br>
-                            </td>
-                            <td><a th:href="@{./rooms/deleteRoom/{id}(id=${room.getId()})}">Удалить комнату</a></td>
-                        </tr>
-                        </tbody>
-                    </table>
-                </td>
-                <td>
-                    <li><a th:href="@{./rooms/addRectangleRoom/{id}(id=${flat.getId()})}">Добавить прямоугольную
-                        комнату</a></li>
-                    <li><a th:href="@{./rooms/addL_shapedRoom/{id}(id=${flat.getId()})}">Добавить Г-образную комнату</a>
-                    </li>
-                </td>
-                <td>
-                    <a th:href="@{./flats/editFlat/{id}(id=${flat.getId()})}">edit</a></td>
+                    <a th:href="@{./flats/editFlat/{id}(id=${flat.getId()})}">edit</a>
                 </td>
                 <td><a th:href="@{./flats/deleteFlat/{id}(id=${flat.getId()})}">delete</a></td>
 

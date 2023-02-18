@@ -11,6 +11,7 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 import java.util.List;
 
@@ -41,8 +42,7 @@ public class DoorController {
             if(list.isEmpty()|| !list.contains(door)){
                 list.add(door);
                 roomService.findById(id).setDoors(list);
-                System.out.println(door);
-                System.out.println(roomService.findById(id));
+
             }
 
         model.addAttribute("door", door);
@@ -50,9 +50,10 @@ public class DoorController {
     }
 
     @RequestMapping("saveDoor")
-    public String saveDoor(@ModelAttribute("door") Door door){
+    public String saveDoor(@ModelAttribute("door") Door door, RedirectAttributes redirectAttributes){
         doorService.save(door);
-        System.out.println(door);
-        return "redirect:/flats";
+        Long flatId = door.getRoom().getFlat().getId();
+        redirectAttributes.addAttribute("flatId", flatId);
+        return "redirect:/flats/viewFlat/{flatId}";
     }
 }
