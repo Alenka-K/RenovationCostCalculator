@@ -1,22 +1,94 @@
-table, th, td {
+/* Общие стили таблицы */
+
+table {
+    border-collapse: collapse;
+    width: 100%;
+    margin-bottom: 10px;
+}
+
+th, td {
     border: 2px solid chocolate;
     background: antiquewhite;
+    padding: 0px;
+    text-align: left;
 }
+.room li {
+    list-style-type: decimal;
+    padding-top: 5px;
+}
+
+
+/* Стили для комнат */
 .winRoom {
     width: 50px;
     height: 50px;
     border-radius: 5px;
-    border:
-            3px       /* width */
-            solid     /* style */
-            coral;
+    border: 3px solid coral;
 }
+
 .doorsRoom {
     width: 40px;
     height: 70px;
     border-radius: 5px;
-    border:
-            3px       /* width */
-            solid     /* style */
-            coral;
+    border: 3px solid coral;
 }
+
+.room, .calculateRoom {
+    padding: 0px;
+    border: 3px solid antiquewhite;
+    background: antiquewhite;
+
+}
+
+
+
+/* Стили для заголовков */
+h1 {
+    font-size: 36px;
+    text-align: center;
+    font-family: cursive, sans-serif;
+    margin-bottom: 20px;
+}
+
+h2 {
+    font-size: 24px;
+    font-family: cursive, sans-serif;
+    margin-top: 40px;
+    margin-bottom: 20px;
+}
+
+/* Стили для формы */
+form {
+    margin-bottom: 20px;
+}
+
+label {
+    display: block;
+    margin-bottom: 10px;
+    font-weight: bold;
+}
+
+input[type="text"], select {
+
+    padding: 10px;
+    border: 2px solid chocolate;
+    border-radius: 5px;
+    margin-bottom: 20px;
+}
+
+input[type="submit"] {
+    background-color: chocolate;
+    color: white;
+    padding: 10px;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+}
+
+
+/* Стили для сообщения об ошибке */
+.error {
+    color: red;
+    margin-bottom: 10px;
+}
+

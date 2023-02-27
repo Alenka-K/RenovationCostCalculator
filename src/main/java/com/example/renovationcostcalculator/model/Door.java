@@ -32,7 +32,7 @@ public class Door implements Opening{
 
     @Override
     public String toString() {
-        return "Двери " + id +
+        return "Двери " +
                 ": ширина" + width +
                 ", высота=" + height +
                 ", глубина=" + depth +".";

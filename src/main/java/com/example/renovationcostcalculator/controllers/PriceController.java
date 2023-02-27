@@ -41,6 +41,12 @@ public class PriceController {
         return "prices/viewAllPrices";
     }
 
+    @GetMapping("/changePrices")
+    public String changePrices(Model model){
+        model.addAttribute("prices", priceService.findAll());
+        return "prices/viewAllPrices";
+    }
+
     @GetMapping("/addPrice")
     public String addPrice(Model model){
         model.addAttribute("price", new Price());

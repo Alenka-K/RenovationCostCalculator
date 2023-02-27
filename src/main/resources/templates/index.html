@@ -1,17 +1,51 @@
 <!DOCTYPE html>
-<html lang="en" >
+<html lang="en">
 <head>
     <meta charset="UTF-8">
-    <title></title>
+    <title>Main Menu</title>
+    <style>
+        body {
+            font-family: cursive, sans-serif;
+            font-size: x-large;
+        }
+
+        h2 {
+            text-align: center;
+            color: #555;
+            margin-top: 20px;
+        }
+
+        div {
+            margin: 10px 0;
+            text-align: center;
+        }
+
+        li {
+            display: inline-block;
+            margin: 10px 10px;
+        }
+
+        a {
+            text-decoration: none;
+            color: lightcoral;
+            font-weight: bold;
+            transition: color 0.2s ease-in-out;
+        }
+
+        a:hover {
+            color: chocolate;
+        }
+    </style>
 </head>
 <body>
-    <h2>Главное меню:</h2>
+<h2>Главное меню:</h2>
 
-    <div><li><a href="/flats">Посмотреть все обьекты</a></li></div>
-    <div><li><a href="/flats/addFlat">Добавить объект</a></li></div>
-    <div><li><a href="/prices">Посмотреть прайс</a></li></div>
-
-
-
+<div>
+    <ul>
+        <li><a href="/flats">Посмотреть все обьекты</a></li>
+        <li><a href="/flats/addFlat">Добавить объект</a></li>
+        <li><a href="/prices">Посмотреть прайс</a></li>
+    </ul>
+</div>
 </body>
 </html>

@@ -3,6 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <title>Title</title>
+    <link rel="stylesheet" type="text/css" th:href="@{/css/style.css}"/>
 </head>
 <body>
 
@@ -28,21 +29,6 @@
     <br>
     <input type="hidden" th:field="*{flat}" id="flat"/>
     <br>
-    <style type="text/css">
-        button[name="run_script"] {
-            border: none;
-            border-radius: 7px;
-            padding: 10px 25px;
-            background: #ff9900;
-            cursor: pointer;
-            text-transform: uppercase;
-            font-weight: bold;
-            color: white;
-        }
-        button[name="run_script"]:hover {
-            background: #ff6600;
-        }
-    </style>
     <input type="submit"   value="Добавить размеры"/>
 
 </form>
