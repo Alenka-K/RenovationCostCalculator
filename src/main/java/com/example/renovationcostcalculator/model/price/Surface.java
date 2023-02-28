@@ -5,5 +5,7 @@ public enum Surface {
     WALL,
     FLOOR,
     CEILING,
-    SLOPE;
+    WINDOWSLOPE,
+    DOORSLOPE;
+
 }

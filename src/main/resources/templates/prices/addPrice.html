@@ -19,16 +19,15 @@
     <label for="type">Вид работы</label>
     <input type="text" th:field="*{type}" id="type"/>
     <br>
-    <label for="amount">Цена
-    <input type="text" th:field="*{amount}" id="amount"/>грн за </label>
-    <label>
+    <label for="amount">Цена</label>
+    <input type="text" th:field="*{amount}" id="amount"/> грн за
+
         <input type="radio" th:field="*{unit}" name="unit" value="м2">
         м2
-    </label>
-    <label>
+
         <input type="radio" th:field="*{unit}" name="unit" value="мп">
         мп
-    </label>
+
     <br>
     <input type="submit" value="Добавить"/>
 </form>

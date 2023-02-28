@@ -37,12 +37,12 @@ public class RoomWindow implements Opening{
 
     @Override
     public double area() {
-        return width*height/1000000;
+        return Math.ceil(width*height/10000)/100;
     }
 
     @Override
     public double getSlopeArea() {
         double area = (depth*height*2) + (width*depth);
-        return area/1000000;
+        return Math.ceil(area/10000)/100;
     }
 }

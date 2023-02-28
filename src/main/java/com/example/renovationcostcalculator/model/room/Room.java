@@ -5,7 +5,6 @@ import com.example.renovationcostcalculator.model.Door;
 import com.example.renovationcostcalculator.model.Flat;
 import com.example.renovationcostcalculator.model.Form;
 import com.example.renovationcostcalculator.model.RoomWindow;
-
 import com.example.renovationcostcalculator.model.price.Price;
 import com.example.renovationcostcalculator.model.price.Surface;
 import lombok.EqualsAndHashCode;
@@ -66,8 +65,7 @@ public abstract class Room {
                 area = area - door.area();
             }
         }
-
-        return area;
+        return Math.ceil(area * 100)/100;
     }
     abstract double getFloorArea();
     abstract double getCeilingArea();
@@ -120,6 +118,14 @@ public abstract class Room {
             }
             if (price.getSurface() == Surface.CEILING & price.getUnit().equals("мп")) {
                 double costPerRoom = getCeilingPerimeter() * price.getAmount();
+                costAllOfWorkOnRoom.put(price, Math.ceil(costPerRoom));
+            }
+            if (price.getSurface() == Surface.WINDOWSLOPE & price.getUnit().equals("м2")) {
+                double costPerRoom = getWindowSlopeArea() * price.getAmount();
+                costAllOfWorkOnRoom.put(price, Math.ceil(costPerRoom));
+            }
+            if (price.getSurface() == Surface.DOORSLOPE & price.getUnit().equals("мп")) {
+                double costPerRoom = getDoorSlopeArea() * price.getAmount();
                 costAllOfWorkOnRoom.put(price, Math.ceil(costPerRoom));
             }
         }

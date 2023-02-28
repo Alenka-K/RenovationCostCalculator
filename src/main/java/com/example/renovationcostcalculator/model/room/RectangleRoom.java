@@ -28,18 +28,18 @@ public class RectangleRoom extends Room {
 
     @Override
     public double getFloorArea() {
-        return (length*width)/1000000;
+        return Math.ceil((length*width)/10000)/100;
     }
 
     @Override
     public double getCeilingArea() {
 
-        return (length*width)/1000000;
+        return Math.ceil((length*width)/10000)/100;
     }
 
     @Override
     public double getCeilingPerimeter() {
-        return (length+width)*2 /1000;
+        return Math.ceil((length+width)*2/10)/100;
     }
 
     @Override
@@ -51,7 +51,8 @@ public class RectangleRoom extends Room {
                 temp = temp + door.getWidth();
             }
         }
-        return (((length*2) + (width*2)) - temp)/1000;
+
+        return Math.ceil((((length*2) + (width*2)) - temp)/10)/100;
     }
 
 
