@@ -12,11 +12,11 @@ th, td {
     padding: 0px;
     text-align: left;
 }
+
 .room li {
     list-style-type: decimal;
     padding-top: 5px;
 }
-
 
 /* Стили для комнат */
 .winRoom {
@@ -39,7 +39,6 @@ th, td {
     background: antiquewhite;
 
 }
-
 
 
 /* Стили для заголовков */
@@ -67,6 +66,19 @@ label {
     margin-bottom: 10px;
     font-weight: bold;
 }
+
+a {
+    list-style-type: square;
+    font-family: cursive, sans-serif;
+    color: green;
+}
+
+#flats li {
+    list-style-type: square;
+
+}
+
+
 
 input[type="text"], select {
 

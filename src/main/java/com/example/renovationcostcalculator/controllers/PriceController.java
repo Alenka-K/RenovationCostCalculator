@@ -11,6 +11,7 @@ import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 import java.util.HashSet;
+import java.util.List;
 import java.util.Set;
 
 
@@ -41,10 +42,21 @@ public class PriceController {
         return "prices/viewAllPrices";
     }
 
-    @GetMapping("/changePrices")
-    public String changePrices(Model model){
-        model.addAttribute("prices", priceService.findAll());
-        return "prices/viewAllPrices";
+    @RequestMapping("/changePrices")
+    public String changePrices() {
+        return "prices/changePrices";
+    }
+
+    @RequestMapping("/saveChangePrices")
+    public String saveChangePrices(@RequestParam("percent") int percent) {
+        List<Price> priceList = priceService.findAll();
+        for (Price price: priceList){
+            int temp = price.getAmount();
+            temp = temp + (temp * percent)/100;
+            price.setAmount(temp);
+            priceService.update(price.getType(),price);
+        }
+        return "redirect:/prices";
     }
 
     @GetMapping("/addPrice")

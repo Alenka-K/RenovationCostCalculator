@@ -6,35 +6,12 @@
         <link rel="stylesheet" type="text/css" th:href="@{/css/style.css}"/>
     </head>
 <body>
-    <h1>Прайс работ</h1>
-
-    <table>
-        <tbody>
-            <tr>
-                <th>Группа поверхностей</th>
-                <th>Вид работы</th>
-                <th>Цена, грн</th>
-                <th>За ед.измерения</th>
-                <th>Изменить</th>
-                <th>Удалить</th>
-            </tr>
-            <tr th:each="price:${prices}">
-                <td th:text="${price.getSurface}"></td>
-                <td th:text="${price.getType}"></td>
-                <td th:text="${price.getAmount}"></td>
-                <td th:text="${price.getUnit}"></td>
-                <td><a th:href="@{./prices/editPrice/{type}(type=${price.getType})}">edit</a></td>
-                <td><a th:href="@{./prices/deletePrice/{type}(type=${price.getType})}">delete</a></td>
-
-            </tr>
-            <div><a href="/prices/downloadPrices">Загрузить прайс</a></div>
-            <div><a href="/prices/changePrices/">Изменить цены в прайсе на %</a></div>
-            <div><a href="/prices/">Изменить цены в прайсе вручную</a></div>
-        </tbody>
-    </table>
-
-
-    <div><li><a th:href="@{./prices/addPrice}">Добавить</a></li></div>
+    <h1>Увеличение цены на процент</h1>
+    <form th:method="post" th:action="@{/prices/saveChangePrices}">
+        <label for="percent">Увеличить цены на процент: </label>
+        <input type="number" id="percent" name="percent"/>
+        <input type="submit" value="Подтвердить"/>
+    </form>
     <div><li><a th:href="@{/flats}">Вернуться к информации по объектам</a></li></div>
 </body>
 </html>

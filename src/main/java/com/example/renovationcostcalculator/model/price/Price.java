@@ -3,10 +3,7 @@ package com.example.renovationcostcalculator.model.price;
 
 import com.example.renovationcostcalculator.model.room.Room;
 import lombok.*;
-import org.hibernate.Hibernate;
-
 import javax.persistence.*;
-import java.util.Objects;
 import java.util.Set;
 
 
@@ -38,7 +35,7 @@ public class Price implements Comparable<Price>{
     @Override
     public String toString() {
         return type + " (" +
-                amount + "грн/" + unit + ")" + "\r\n";
+                amount + "грн/" + unit + ")" ;
     }
 
     @Override

@@ -1,0 +1,22 @@
+
+table {
+    border-collapse: collapse;
+    width: auto;
+    white-space: pre;
+    margin-bottom: 10px;
+}
+
+th, td {
+    border: 2px solid steelblue;
+    background: skyblue;
+    padding: 0px;
+    text-align: left;
+}
+
+h1 {
+    font-size: 36px;
+    color: darkblue;
+    text-align: left;
+    font-family: cursive, sans-serif;
+    margin-bottom: 20px;
+}
