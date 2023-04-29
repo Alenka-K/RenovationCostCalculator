@@ -1,4 +1,4 @@
-<!DOCTYPE html>
+<!DOCTYPE html><td th:text="${flat.address}"/>
 <html lang="en" xmlns:th="http://www.w3.org/1999/xhtml">
 <head>
     <meta charset="UTF-8">
@@ -142,6 +142,9 @@
             </tbody>
 
             </table>
+            <a th:href="@{../../viewInfo/{id}(id=${flat.getId()})}">Вывести данные калькуляции для печати</a>
+            <br>
+            <br>
             <a th:href="@{../../viewInfoOfFlat/{id}(id=${flat.getId()})}">Просмотреть сохраненные данные по объекту</a>
         </td>
     </tr>

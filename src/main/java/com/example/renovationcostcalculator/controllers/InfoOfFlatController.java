@@ -1,6 +1,7 @@
 package com.example.renovationcostcalculator.controllers;
 
 
+import com.example.renovationcostcalculator.model.Flat;
 import com.example.renovationcostcalculator.model.InfoOfFlat;
 import com.example.renovationcostcalculator.services.FlatService;
 import com.example.renovationcostcalculator.services.InfoOfFlatService;
@@ -41,5 +42,12 @@ public class InfoOfFlatController {
         model.addAttribute("listInfoOfFlat", infoOfFlatService.findAllByFlatId(id));
         return "viewInfoOfFlat";
     }
+
+    @GetMapping("/viewInfo/{id}")
+    public String viewInfo(@PathVariable("id") Long id, Model model) {
+        model.addAttribute("flat", flatService.findById(id));
+        return "viewInfo";
+    }
+
 
 }
