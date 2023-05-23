@@ -9,8 +9,14 @@
 <form th:method="patch" th:action="@{/flats/updateFlat/{id}(id=${flat.id})}" th:object="${flat}">
     <input type="text" hidden th:field="*{id}" id="id"/>
     <br>
-    <label for="address">Адресс</label>
+    <label for="address">Адресс: </label>
     <input type="text" th:field="*{address}" id="address"/>
+    <br>
+    <label for="customerName">ФИО заказчика: </label>
+    <input type="text" th:field="*{customerName}" id="customerName"/>
+    <br>
+    <label for="customerPhone">Телефон для связи: </label>
+    <input type="text" th:field="*{customerPhone}" id="customerPhone"/>
     <br>
     <input type="submit" value="Обновить"/>
 </form>

@@ -5,7 +5,7 @@ import com.example.renovationcostcalculator.model.InfoOfFlat;
 import com.example.renovationcostcalculator.repositories.InfoOfFlatRepository;
 import org.springframework.stereotype.Service;
 
-import javax.transaction.Transactional;
+import jakarta.transaction.Transactional;
 import java.util.List;
 
 @Service

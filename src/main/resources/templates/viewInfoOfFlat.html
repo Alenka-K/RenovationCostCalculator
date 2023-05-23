@@ -1,12 +1,12 @@
 <!DOCTYPE html>
-<html lang="en" xmlns:th="http://www.w3.org/1999/xhtml">
+<html lang="en" xmlns:th="http://www.w3.org/1999/xhtml" xmlns:HH="http://www.w3.org/1999/xhtml">
 <head>
     <meta charset="UTF-8">
     <title>Обьекты</title>
     <link type="text/css" rel="stylesheet"  th:href="@{/css/info_flat.css}"/>
 </head>
 <body>
-<h1>Список объектов</h1>
+<h1>Сохраненные калькуляции по объекту <td th:text="${flat.address}"/></h1>
 
 <table class="infoFlat">
     <tbody>
@@ -16,7 +16,7 @@
     </tr>
     <tr th:each="infoOfFlat : ${listInfoOfFlat}">
 
-        <td th:text="${infoOfFlat.getLocalDateTime}" ></td>
+        <td th:text='${infoOfFlat.dateTimeToString}' ></td>
         <td th:text="${infoOfFlat.getInfo}" ></td>
     </tr>
     </tbody>

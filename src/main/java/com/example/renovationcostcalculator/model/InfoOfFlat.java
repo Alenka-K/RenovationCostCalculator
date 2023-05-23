@@ -1,15 +1,14 @@
 package com.example.renovationcostcalculator.model;
 
-import com.example.renovationcostcalculator.model.price.Price;
-import com.example.renovationcostcalculator.model.room.Room;
+
 import lombok.EqualsAndHashCode;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
-
-import javax.persistence.*;
+import jakarta.persistence.*;
 import java.time.LocalDateTime;
-import java.util.Map;
+import java.time.format.DateTimeFormatter;
+
 
 
 @Entity
@@ -18,6 +17,11 @@ import java.util.Map;
 @Getter
 @Setter
 public class InfoOfFlat {
+
+    public static DateTimeFormatter formatter = DateTimeFormatter.ofPattern("dd/MM/yyyy HH:mm");
+
+
+
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
@@ -34,25 +38,21 @@ public class InfoOfFlat {
         return localDateTime;
     }
 
+    public String dateTimeToString() {
+        return localDateTime.format(formatter);
+    }
+
     public String  getInfo() {
         return info;
     }
 
 
-    public String mapToString(){
-        StringBuilder builder = new StringBuilder();
-        for (Room room: flat.getRooms()) {
-            builder.append(room.getName()).append(":").append("\r\n");
 
-            for (Map.Entry<Price, Double> entry: room.getCalculateRoom().entrySet()) {
-                builder.append("  ").append(entry.getKey()).append(": ").append(entry.getValue()).append(" грн" + "\r\n");
-            }
-            builder.append("\r\n");
-        }
-        builder.append("___________________\r\n");
-        builder.append("Итого: ").append(flat.getAllCost()).append(" грн");
-        return builder.toString();
+    public String formatOfLocalDateTime(){
+
+        return localDateTime.format(formatter);
     }
+
 
     @Override
     public String toString() {

@@ -8,7 +8,7 @@ import com.example.renovationcostcalculator.repositories.RoomRepository;
 import org.hibernate.result.Output;
 import org.springframework.stereotype.Service;
 
-import javax.transaction.Transactional;
+import jakarta.transaction.Transactional;
 import java.util.List;
 import java.util.Optional;
 

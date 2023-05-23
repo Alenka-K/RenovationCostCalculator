@@ -5,7 +5,7 @@ import com.example.renovationcostcalculator.model.room.RectangleRoom;
 import com.example.renovationcostcalculator.model.room.Room;
 import lombok.*;
 
-import javax.persistence.*;
+import jakarta.persistence.*;
 
 
 @Entity

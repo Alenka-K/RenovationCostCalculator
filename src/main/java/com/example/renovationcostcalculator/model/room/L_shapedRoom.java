@@ -3,7 +3,7 @@ package com.example.renovationcostcalculator.model.room;
 import com.example.renovationcostcalculator.model.Door;
 import com.example.renovationcostcalculator.model.Form;
 import lombok.*;
-import javax.persistence.*;
+import jakarta.persistence.*;
 import java.util.List;
 
 

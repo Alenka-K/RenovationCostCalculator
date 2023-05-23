@@ -6,7 +6,7 @@ import com.example.renovationcostcalculator.model.Flat;
 import com.example.renovationcostcalculator.repositories.FlatRepository;
 import org.springframework.stereotype.Service;
 
-import javax.transaction.Transactional;
+import jakarta.transaction.Transactional;
 import java.util.List;
 import java.util.Optional;
 

@@ -3,7 +3,7 @@ package com.example.renovationcostcalculator.model.price;
 
 import com.example.renovationcostcalculator.model.room.Room;
 import lombok.*;
-import javax.persistence.*;
+import jakarta.persistence.*;
 import java.util.Set;
 
 

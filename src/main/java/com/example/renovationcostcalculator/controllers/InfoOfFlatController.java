@@ -1,8 +1,8 @@
 package com.example.renovationcostcalculator.controllers;
 
 
-import com.example.renovationcostcalculator.model.Flat;
 import com.example.renovationcostcalculator.model.InfoOfFlat;
+import com.example.renovationcostcalculator.model.utils.ViewInfoOfFlat;
 import com.example.renovationcostcalculator.services.FlatService;
 import com.example.renovationcostcalculator.services.InfoOfFlatService;
 import org.springframework.stereotype.Controller;
@@ -31,7 +31,7 @@ public class InfoOfFlatController {
         InfoOfFlat info =  new InfoOfFlat();
         info.setLocalDateTime(LocalDateTime.now());
         info.setFlat(flatService.findById(id));
-        info.setInfo(info.mapToString());
+        info.setInfo(ViewInfoOfFlat.infoOfFlatToString(flatService.findById(id)));
         infoOfFlatService.save(info);
         redirectAttributes.addAttribute("id", id);
         return "redirect:/flats/viewFlat/{id}";
@@ -40,12 +40,16 @@ public class InfoOfFlatController {
     @GetMapping("/viewInfoOfFlat/{id}")
     public String viewInfoOfFlat(@PathVariable("id") Long id, Model model) {
         model.addAttribute("listInfoOfFlat", infoOfFlatService.findAllByFlatId(id));
+        model.addAttribute("flat", flatService.findById(id));
         return "viewInfoOfFlat";
     }
 
     @GetMapping("/viewInfo/{id}")
     public String viewInfo(@PathVariable("id") Long id, Model model) {
         model.addAttribute("flat", flatService.findById(id));
+        model.addAttribute("time", ViewInfoOfFlat.formatOfLocalDateTime(LocalDateTime.now()));
+        model.addAttribute("info", ViewInfoOfFlat.infoOfFlatToString(flatService.findById(id)));
+
         return "viewInfo";
     }
 

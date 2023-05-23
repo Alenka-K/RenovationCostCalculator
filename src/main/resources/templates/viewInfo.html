@@ -11,19 +11,14 @@
 <table>
     <tbody>
     <tr>
-        <th>Поверхность</th>
-        <th>Вид работы</th>
-        <th>Сумма</th>
-    </tr>
-    <tr th:each="set :${flat.getCalculateFlat()}">
-        <td th:text="${set.getKey().getSurface()}"></td>
-        <td th:text="${set.getKey().getType()}"></td>
-        <td th:text="${set.getValue()} + ' грн'"></td>
-
+        <th>Дата</th>
+        <th>Калькуляция по объекту</th>
+        <th>Сохранить данные по объекту</th>
     </tr>
     <tr>
-        <td colspan="2">ИТОГО:</td>
-        <td th:text="${flat.getAllCost}"></td>
+        <td th:text="${time}" ></td>
+        <td th:text="${info}" ></td>
+        <td><a th:href="@{../../saveInfoOfFlat/{id}(id=${flat.getId()})}">Сохранить</a></td>
     </tr>
     </tbody>
 
