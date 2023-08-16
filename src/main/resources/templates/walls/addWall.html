@@ -1,0 +1,30 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.w3.org/1999/xhtml">
+<head>
+    <meta charset="UTF-8">
+    <title>Добавление стены в комнате</title>
+    <link rel="stylesheet" type="text/css" th:href="@{/css/style.css}"/>
+</head>
+<body>
+<h2>Введите размеры стены:</h2>
+
+<form method="PATCH" th:action="@{/walls/saveWall}" th:object="${wall}">
+    <input type="hidden" th:field="*{id}" id="id"/>
+    <br>
+    <input type="hidden" th:field="*{room}" id="room"/>
+    <br>
+    <label for="height">Высота</label>
+    <input type="number" th:field="*{height}" id="height"/>
+    <br>
+    <label for="length">Длина</label>
+    <input type="number" th:field="*{length}" id="length"/>
+    <br>
+    <label for="depth">Глубина</label>
+    <input type="number" th:field="*{depth}" id="depth"/>
+    <br>
+    <input type="submit" value="Add wall"/>
+    <br>
+</form>
+
+</body>
+</html>

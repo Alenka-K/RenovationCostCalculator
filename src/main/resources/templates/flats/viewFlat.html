@@ -65,6 +65,16 @@
                         <span>Двери:</span>
                         <br>
                         <span th:text="${room.getDoors}"></span>
+                        <br>
+                        <span>Перегородки:</span>
+                        <span th:if="${room.getWalls}" th:each="wall : ${room.getWalls}">
+                            <br>
+                            <span> - </span>
+                            <span th:text="${wall.length}">length</span><span> *</span>
+                            <span th:text="${wall.depth}">length</span>
+                            <a th:href="@{../../walls/editWall/{id}(id=${wall.id})}">Изменить</a>
+                        </span>
+
                     </td>
                     <td style="white-space: nowrap">
                         <span>Площадь :</span>
@@ -74,6 +84,8 @@
                         <span>- потолка: </span><span th:text="${room.getCeilingArea} + м2"></span>
                         <br>
                         <span>- стен: </span><span th:text="${room.getWallsArea} + м2"></span>
+                        <br>
+                        <span>   в том числе стен-перегородок: </span><span th:text="${room.getPartitionWallsArea} + м2"></span>
                         <br>
                         <span>- оконных откосов:</span><span th:text="${room.getWindowSlopeArea} + м2"></span>
                         <br>
@@ -110,6 +122,8 @@
                         <br>
                         <a th:href="@{../../doors/addDoor/{id}(id=${room.id})}" title="Двери"><img th:src="@{/images/door_1.jpg}" class="doorsRoom" alt="Двери"/></a>
                         <br>
+                        <a th:href="@{../../walls/addWall/{id}(id=${room.id})}">Стену</a>
+                        <br>
                     </td>
                     <td><a th:href="@{../../rooms/deleteRoom/{id}(id=${room.getId()})}">Удалить комнату</a></td>
                 </tr>
@@ -129,7 +143,7 @@
                 <th>Вид работы</th>
                 <th>Сумма</th>
             </tr>
-            <tr th:each="set :${flat.getCalculateFlat()}">
+            <tr th:each="set :${flat.getCalculateFlat()}">public
                 <td th:text="${set.getKey().getSurface()}"></td>
                 <td th:text="${set.getKey().getType()}"></td>
                 <td th:text="${set.getValue()} + ' грн'"></td>

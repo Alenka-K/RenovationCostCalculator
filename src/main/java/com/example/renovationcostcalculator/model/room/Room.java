@@ -1,10 +1,7 @@
 package com.example.renovationcostcalculator.model.room;
 
 
-import com.example.renovationcostcalculator.model.Door;
-import com.example.renovationcostcalculator.model.Flat;
-import com.example.renovationcostcalculator.model.Form;
-import com.example.renovationcostcalculator.model.RoomWindow;
+import com.example.renovationcostcalculator.model.*;
 import com.example.renovationcostcalculator.model.price.Price;
 import com.example.renovationcostcalculator.model.price.Surface;
 import lombok.EqualsAndHashCode;
@@ -37,6 +34,8 @@ public abstract class Room {
     @OneToMany(cascade = CascadeType.ALL, fetch = FetchType.LAZY, mappedBy = "room")
     private List<Door> doors = new ArrayList<>();
 
+    @OneToMany(cascade = CascadeType.ALL, fetch = FetchType.LAZY, mappedBy = "room")
+    private List<Wall> walls = new ArrayList<>();
 
     @ManyToMany(cascade = CascadeType.PERSIST, fetch = FetchType.LAZY)
     @JoinTable(
@@ -52,6 +51,15 @@ public abstract class Room {
     
 
 
+    public  double getPartitionWallsArea() {
+        double area = 0.0;
+        if (!walls.isEmpty()) {
+            for (Wall wall : walls) {
+                area = area + (wall.getWallArea() * 2);
+            }
+        }
+        return Math.ceil(area * 100)/100;
+    }
 
     public double getWallsArea(){
         double area = this.getFloorPerimeter()*(height/1000);
@@ -60,12 +68,13 @@ public abstract class Room {
                 area = area - roomWindow.area();
             }
         }
-        if (!doors.isEmpty()){
+        if (!doors.isEmpty()) {
             for (Door door : doors) {
                 area = area - door.area();
             }
         }
-        return Math.ceil(area * 100)/100;
+
+        return (Math.ceil(area * 100)/100) - this.getPartitionWallsArea();
     }
     abstract double getFloorArea();
     abstract double getCeilingArea();
@@ -109,7 +118,13 @@ public abstract class Room {
                 costAllOfWorkOnRoom.put(price, Math.ceil(costPerRoom));
             }
             if (price.getSurface() == Surface.FLOOR & price.getUnit().equals("м2")) {
-                double costPerRoom = this.getFloorArea() * price.getAmount();
+                double florArea = this.getFloorArea();
+                if (!walls.isEmpty()){
+                    for (Wall wall: walls) {
+                        florArea = florArea - wall.getFloorAreaUnderWall();
+                    }
+                }
+                double costPerRoom =florArea  * price.getAmount();
                 costAllOfWorkOnRoom.put(price, Math.ceil(costPerRoom));
             }
             if (price.getSurface() == Surface.CEILING & price.getUnit().equals("м2")) {

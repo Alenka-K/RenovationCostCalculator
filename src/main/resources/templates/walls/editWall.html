@@ -1,0 +1,29 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.w3.org/1999/xhtml"
+>
+<head>
+    <meta charset="UTF-8">
+    <title>Обновить данные</title>
+</head>
+<body>
+<form th:method="patch" th:action="@{/walls/updateWall/{id}(id=${wall.id})}" th:object="${wall}">
+    <input type="number" hidden th:value="${wall.id}" name="id" id="id"/>
+    <br>
+    <label for="height">Высота стены: </label>
+    <input type="number" th:value="${wall.height}"  name="height" id="height"/>
+    <br>
+    <label for="length">Длина стены: </label>
+    <input type="number" th:value="${wall.length}" name="length" id="length"/>
+    <br>
+    <label for="depth">Толщина стены: </label>
+    <input type="number" th:value="${wall.depth}" name="depth" id="depth"/>
+    <br>
+    <div >
+        <label >Комната: </label>
+        <input type="number" th:value="${room.id}"  name="roomId"/>
+    <br>
+    </div>
+    <input type="submit" value="Обновить"/>
+</form>
+</body>
+</html>
