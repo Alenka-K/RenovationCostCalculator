@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html lang="en" xmlns:th="http://www.w3.org/1999/xhtml" xmlns:HH="http://www.w3.org/1999/xhtml">
+<html lang="en" xmlns="http://www.w3.org/1999/xhtml" xmlns:th="https://www.thymeleaf.org/" >
 <head>
     <meta charset="UTF-8">
     <title>Обьекты</title>
@@ -12,12 +12,12 @@
     <tbody>
     <tr>
         <th>Дата</th>
-        <th>Калькуляция по объекту</th>
+
     </tr>
     <tr th:each="infoOfFlat : ${listInfoOfFlat}">
 
-        <td th:text='${infoOfFlat.dateTimeToString}' ></td>
-        <td th:text="${infoOfFlat.getInfo}" ></td>
+        <td><a th:href="@{/viewInfo/{id}(id=${infoOfFlat.getId})}" th:text='${infoOfFlat.dateTimeToString()}'></a></td>
+
     </tr>
     </tbody>
 

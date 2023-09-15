@@ -1,0 +1,59 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.w3.org/1999/xhtml">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+</head>
+<body>
+<form method="PATCH" th:action="@{/rooms/updateRoomDimensions}" th:object="${room}">
+    <label >Комната: </label>
+    <input type="number" th:value="${id}"  name="id"/>
+    <br>
+    <label >Высота</label>
+    <input type="number" th:value="*{height}" name="height"/>
+    <br>
+    <input type="hidden" th:field="*{flat}" id="flat"/>
+    <br>
+    <span th:switch="${room.form.name()}">
+            <p th:case="'RECTANGLE'">
+            <label >Длинна</label>
+            <input type="number" th:value="*{length}" name="length"/>
+            <br>
+            <label >Ширина</label>
+            <input type="number" th:field="*{width}" id="width"/>
+            <br>
+            </p>
+            <p th:case="'L_SHAPED'">
+            <label >Длинна</label>
+            <input type="number" th:field="*{length}" id="length"/>
+            <br>
+            <label >Ширина</label>
+            <input type="number" th:field="*{width}" name="width"/>
+            <br>
+            <label for="lengthSmall">Длинна меньшая</label>
+            <input type="number" th:field="*{lengthSmall}" id="lengthSmall"/>
+            <br>
+            <label for="widthSmall">Ширина меньшая</label>
+            <input type="number" th:field="*{widthSmall}" id="widthSmall"/>
+            <br>
+            </p>
+            <p th:case="'FREE'">
+                <label for="widthOfCircumscribedRectangle">Ширина описанного прямоугольника:</label>
+                <input type="number" th:field="*{widthOfCircumscribedRectangle}" id="widthOfCircumscribedRectangle"/>
+                <br>
+                <label for="lengthOfCircumscribedRectangle">Длинна описанного прямоугольника:</label>
+                <input type="number" th:field="*{lengthOfCircumscribedRectangle}" id="lengthOfCircumscribedRectangle"/>
+                <br>
+                <label for="listOfWallLengths">Длины стен:</label>
+                <input type="text" th:field="*{listOfWallLengths}" id="listOfWallLengths"/>
+                <br>
+                <label for="rectanglesToExtractFromCircumscribedRectangle">Прямоугольники для вычета из описанного через запятую (пример 1200/1800,1400/1000):</label>
+                <input type="text" th:field="*{rectanglesToExtractFromCircumscribedRectangle}" id="rectanglesToExtractFromCircumscribedRectangle"/>
+                <br>
+                </p>
+    </span>
+    <input type="submit"   value="Добавить размеры"/>
+
+</form>
+</body>
+</html>

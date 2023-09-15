@@ -4,15 +4,18 @@
         <meta charset="UTF-8">
         <title>Прайс</title>
         <link rel="stylesheet" type="text/css" th:href="@{/css/style.css}"/>
+        <script th:src="@{/js/searching.js}"></script>
     </head>
 <body>
     <h1>Прайс работ</h1>
 
-    <table>
-        <tbody>
+
+    <table id="myTable">
+        <tbody >
             <tr>
                 <th>Группа поверхностей</th>
-                <th>Вид работы</th>
+                <th>Вид работы
+                    <input type="text" id="myInput" onkeyup="myFunction(1)" placeholder="Поиск по виду работ"></th>
                 <th>Цена, грн</th>
                 <th>За ед.измерения</th>
                 <th>Изменить</th>

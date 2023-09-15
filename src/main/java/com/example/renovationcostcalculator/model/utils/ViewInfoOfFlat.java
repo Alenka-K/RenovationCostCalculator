@@ -7,6 +7,7 @@ import org.springframework.beans.factory.annotation.Value;
 
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
+import java.util.List;
 import java.util.Map;
 
 public class ViewInfoOfFlat {
@@ -21,14 +22,10 @@ public class ViewInfoOfFlat {
 
     public static String infoOfFlatToString(Flat flat){
         StringBuilder builder = new StringBuilder();
-        for (Room room: flat.getRooms()) {
-            builder.append(room.getName()).append(":").append("\r\n");
-
-            for (Map.Entry<Price, Double> entry: room.getCalculateRoom().entrySet()) {
-                builder.append("  ").append(entry.getKey()).append(": ").append(entry.getValue()).append(" грн" + "\r\n");
+        for (Map.Entry<Price, List<Double>> entry: flat.getCalculateFlat().entrySet()) {
+                builder.append("  ").append(entry.getKey()).append(": ").append(entry.getValue().get(0)).append("*").append(entry.getKey().getAmount()).append("=").append(entry.getValue().get(1)).append(" грн" + "\r\n");
             }
             builder.append("\r\n");
-        }
         builder.append("___________________\r\n");
         builder.append("Итого: ").append(flat.getAllCost()).append(" грн");
         return builder.toString();

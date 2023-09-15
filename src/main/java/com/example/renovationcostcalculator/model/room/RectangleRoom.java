@@ -4,6 +4,7 @@ package com.example.renovationcostcalculator.model.room;
 
 import com.example.renovationcostcalculator.model.Door;
 import com.example.renovationcostcalculator.model.Form;
+import com.example.renovationcostcalculator.model.utils.Count;
 import lombok.*;
 
 
@@ -21,38 +22,31 @@ public class RectangleRoom extends Room {
 
     private final Form form = Form.RECTANGLE;
 
+
     private double length;
     private double width;
 
 
-
     @Override
     public double getFloorArea() {
-        return Math.ceil((length*width)/10000)/100;
+        return Count.rounding(length * width/1000000);
     }
 
     @Override
     public double getCeilingArea() {
 
-        return Math.ceil((length*width)/10000)/100;
+        return Count.rounding(length * width/1000000);
     }
 
     @Override
     public double getCeilingPerimeter() {
-        return Math.ceil((length+width)*2/10)/100;
+        return Count.rounding((length + width)*2/1000);
     }
 
     @Override
     public double getFloorPerimeter() {
-        List<Door> doors = super.getDoors();
-        double temp = 0;
-        if (!doors.isEmpty()){
-            for (Door door : doors) {
-                temp = temp + door.getWidth();
-            }
-        }
 
-        return Math.ceil((((length*2) + (width*2)) - temp)/10)/100;
+        return Count.rounding((length + width)*2/1000);
     }
 
 

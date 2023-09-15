@@ -56,4 +56,12 @@ public class WindowController {
         return "redirect:/flats/viewFlat/{flatId}";
     }
 
+    @RequestMapping("/deleteWindow/{id}")
+    public String deleteWindow(@PathVariable("id") Long id, RedirectAttributes redirectAttributes) {
+        Long flatId = roomWindowService.findById(id).getRoom().getFlat().getId();
+        roomWindowService.delete(id);
+        redirectAttributes.addAttribute("flatId", flatId);
+        return "redirect:/flats/viewFlat/{flatId}";
+    }
+
 }

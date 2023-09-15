@@ -3,6 +3,7 @@ package com.example.renovationcostcalculator.controllers;
 
 import com.example.renovationcostcalculator.model.price.Price;
 import com.example.renovationcostcalculator.model.room.Room;
+import com.example.renovationcostcalculator.model.utils.PriceComparator;
 import com.example.renovationcostcalculator.services.PriceService;
 import com.example.renovationcostcalculator.services.RoomService;
 import org.springframework.stereotype.Controller;
@@ -13,6 +14,7 @@ import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 import java.util.HashSet;
 import java.util.List;
 import java.util.Set;
+import java.util.TreeSet;
 
 
 @Controller
@@ -49,8 +51,8 @@ public class PriceController {
 
     @RequestMapping("/saveChangePrices")
     public String saveChangePrices(@RequestParam("percent") int percent) {
-        List<Price> priceList = priceService.findAll();
-        for (Price price: priceList){
+        Set<Price> priceSet = priceService.findAll();
+        for (Price price: priceSet){
             int temp = price.getAmount();
             temp = temp + (temp * percent)/100;
             price.setAmount(temp);
@@ -74,6 +76,8 @@ public class PriceController {
         return "prices/addPriceSet";
     }
 
+
+
     @Transactional
     @RequestMapping("/savePriceSet")
     public String savePriceSet(@RequestParam(value = "priceIds", required = false) String[] priceIds,
@@ -86,11 +90,14 @@ public class PriceController {
             }
         }
         Set<Price> priceSet = new HashSet<>();
-        for(String price1: priceIds){
-            Price price = priceService.findByType(price1);
-            priceSet.add(price);
-            priceService.findByType(price1).getRooms().add(roomService.findById(id));
+        if (priceIds != null){
+            for(String price1: priceIds){
+                Price price = priceService.findByType(price1);
+                priceSet.add(price);
+                priceService.findByType(price1).getRooms().add(roomService.findById(id));
+            }
         }
+
         roomService.findById(id).setPriceSet(priceSet);
         redirectAttributes.addAttribute("flatId", room.getFlat().getId());
         return "redirect:/flats/viewFlat/{flatId}";
@@ -99,8 +106,9 @@ public class PriceController {
 
     @GetMapping("/editPriceSet/{id}")
     public String editPriceSet(@PathVariable("id") Long id, Model model){
-        Set<Price> priceSetRoom = roomService.findById(id).getPriceSet();
-        Set<Price> priceSetAbsent = new HashSet<>();
+        Set<Price> priceSetRoom = new TreeSet<>(new PriceComparator());
+        priceSetRoom.addAll(roomService.findById(id).getPriceSet());
+        Set<Price> priceSetAbsent = new TreeSet<>(new PriceComparator());
         for (Price price: priceService.findAll()) {
             if(!priceSetRoom.contains(price)) priceSetAbsent.add(price);
         }

@@ -17,8 +17,14 @@ public class InfoOfFlatService {
         this.infoOfFlatRepository = infoOfFlatRepository;
     }
 
+   @Transactional
     public List<InfoOfFlat> findAllByFlatId(Long id) {
         return infoOfFlatRepository.findAllByFlat_Id(id);
+    }
+
+    @Transactional
+    public InfoOfFlat findById(Long id){
+        return infoOfFlatRepository.findInfoOfFlatById(id);
     }
 
     @Transactional

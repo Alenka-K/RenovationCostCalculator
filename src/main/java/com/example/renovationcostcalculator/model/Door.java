@@ -3,6 +3,7 @@ package com.example.renovationcostcalculator.model;
 import com.example.renovationcostcalculator.model.room.L_shapedRoom;
 import com.example.renovationcostcalculator.model.room.RectangleRoom;
 import com.example.renovationcostcalculator.model.room.Room;
+import com.example.renovationcostcalculator.model.utils.Count;
 import lombok.*;
 
 import jakarta.persistence.*;
@@ -32,20 +33,28 @@ public class Door implements Opening{
 
     @Override
     public String toString() {
-        return "Двери " +
-                ": ширина" + width +
-                ", высота=" + height +
-                ", глубина=" + depth +".";
+        return
+                " -(" + height +
+                "x" + width +
+                "x" + depth +")\n";
     }
 
     @Override
     public double area() {
-        return width*height/100000;
+        return Count.rounding(width*height/1000000);
     }
 
     @Override
     public double getSlopeArea() {
-        return ((depth*height*2) + (width*depth))/100000;
+        double slopeArea = ((depth*height*2) + (width*depth))/1000000;
+        return Count.rounding(slopeArea);
     }
+
+    public double getPerimeter(){
+        double perimeter = ((height*2)+width)/1000;
+        return Count.rounding(perimeter);
+    }
+
+    public double getDoorAreaByFloor(){return Count.rounding(width*depth/1000000);}
 
 }

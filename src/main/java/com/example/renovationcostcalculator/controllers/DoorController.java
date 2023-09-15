@@ -56,4 +56,12 @@ public class DoorController {
         redirectAttributes.addAttribute("flatId", flatId);
         return "redirect:/flats/viewFlat/{flatId}";
     }
+
+    @RequestMapping("/deleteDoor/{id}")
+    public String deleteDoor(@PathVariable("id") Long id, RedirectAttributes redirectAttributes) {
+        Long flatId = doorService.findById(id).getRoom().getFlat().getId();
+        doorService.delete(id);
+        redirectAttributes.addAttribute("flatId", flatId);
+        return "redirect:/flats/viewFlat/{flatId}";
+    }
 }

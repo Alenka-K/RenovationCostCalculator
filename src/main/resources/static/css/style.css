@@ -1,5 +1,7 @@
 /* Общие стили таблицы */
 
+
+
 table {
     border-collapse: collapse;
     width: 100%;
@@ -67,11 +69,13 @@ label {
     font-weight: bold;
 }
 
+
 a {
     list-style-type: square;
     font-family: cursive, sans-serif;
     color: green;
 }
+
 
 #flats li {
     list-style-type: square;
@@ -96,6 +100,11 @@ input[type="submit"] {
     border-radius: 5px;
     cursor: pointer;
 }
+input[type="number"]::-webkit-outer-spin-button,
+input[type="number"]::-webkit-inner-spin-button {
+    -webkit-appearance: none;
+    margin: 0;
+}
 
 
 /* Стили для сообщения об ошибке */
@@ -104,3 +113,6 @@ input[type="submit"] {
     margin-bottom: 10px;
 }
 
+.deleteA {
+    color: red;
+}

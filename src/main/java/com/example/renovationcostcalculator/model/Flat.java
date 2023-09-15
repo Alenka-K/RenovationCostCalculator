@@ -2,12 +2,16 @@ package com.example.renovationcostcalculator.model;
 
 import com.example.renovationcostcalculator.model.price.Price;
 import com.example.renovationcostcalculator.model.room.Room;
+import com.example.renovationcostcalculator.model.utils.Count;
+import com.example.renovationcostcalculator.model.utils.PriceComparator;
 import lombok.AllArgsConstructor;
 import lombok.EqualsAndHashCode;
 import lombok.NoArgsConstructor;
 import lombok.ToString;
 
 import jakarta.persistence.*;
+
+import java.io.Serializable;
 import java.util.List;
 import java.util.Set;
 import java.util.TreeMap;
@@ -19,7 +23,7 @@ import java.util.TreeMap;
 @EqualsAndHashCode
 @ToString
 @Table(name = "FLAT")
-public class Flat {
+public class Flat implements Serializable {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
@@ -75,23 +79,24 @@ public class Flat {
     }
 
 
-    public TreeMap<Price, Double> getCalculateFlat() {
-        TreeMap<Price, Double> costAllOfWorkOnFlat = new TreeMap<>();
+    public TreeMap<Price, List<Double>> getCalculateFlat() {
+        TreeMap<Price, List<Double>> costAllOfWorkOnFlat = new TreeMap<>(new PriceComparator());
         for (Room room : rooms ){
-            TreeMap<Price, Double> costAllOfWorkOnRoom = room.getCalculateRoom();
+            TreeMap<Price, List<Double>> costAllOfWorkOnRoom = room.getCalculateRoom();
             Set<Price> prices = costAllOfWorkOnRoom.keySet();
             for (Price price: prices) {
                 if (costAllOfWorkOnFlat.containsKey(price)) {
-                    Double value = costAllOfWorkOnFlat.get(price) + costAllOfWorkOnRoom.get(price);
-                    costAllOfWorkOnFlat.put(price, value);
+                    Double value = costAllOfWorkOnFlat.get(price).get(1) + costAllOfWorkOnRoom.get(price).get(1);
+                    Double characteristic = costAllOfWorkOnFlat.get(price).get(0) + costAllOfWorkOnRoom.get(price).get(0);
+                    costAllOfWorkOnFlat.put(price, List.of(Count.rounding(characteristic), Count.rounding(value)));
                 }else {
-                    costAllOfWorkOnFlat.put(price, costAllOfWorkOnRoom.get(price));
+                    costAllOfWorkOnFlat.put(price, List.of(Count.rounding(costAllOfWorkOnRoom.get(price).get(0)), Count.rounding(costAllOfWorkOnRoom.get(price).get(1))));
                 }
             }
         }
         return costAllOfWorkOnFlat;
     }
     public Double getAllCost(){
-        return getCalculateFlat().values().stream().mapToDouble(Double::doubleValue).sum();
+        return Count.rounding(getCalculateFlat().values().stream().map(x -> x.get(1)).mapToDouble(Double::doubleValue).sum());
     }
 }

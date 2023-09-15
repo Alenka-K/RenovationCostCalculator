@@ -1,12 +1,12 @@
 <!DOCTYPE html>
-<html lang="en" xmlns:th="http://www.w3.org/1999/xhtml">
+<html lang="en" xmlns="http://www.w3.org/1999/xhtml" xmlns:th="https://www.thymeleaf.org/" >
 <head>
     <meta charset="UTF-8">
     <title>Обьекты</title>
     <link type="text/css" rel="stylesheet"  th:href="@{/css/info_flat.css}"/>
 </head>
 <body>
-<h1>Калькуляция по объекту <td th:text="${flat.address}"/> </h1>
+<h1>Калькуляция по объекту <td th:text="${infoOfFlat.getFlat().getAddress()}"/> </h1>
 
 <table>
     <tbody>
@@ -17,8 +17,8 @@
     </tr>
     <tr>
         <td th:text="${time}" ></td>
-        <td th:text="${info}" ></td>
-        <td><a th:href="@{../../saveInfoOfFlat/{id}(id=${flat.getId()})}">Сохранить</a></td>
+        <td th:text="${infoOfFlat.getInfo()}" ></td>
+        <td><a th:href="@{../../saveInfoOfFlat/{id}(id=${infoOfFlat.getFlat().getId()})}">Сохранить</a></td>
     </tr>
     </tbody>
 

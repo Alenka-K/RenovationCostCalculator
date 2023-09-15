@@ -6,6 +6,11 @@ import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
 import jakarta.persistence.*;
+
+import java.io.File;
+import java.io.FileNotFoundException;
+import java.io.PrintWriter;
+import java.io.Serializable;
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
 
@@ -16,7 +21,7 @@ import java.time.format.DateTimeFormatter;
 @EqualsAndHashCode
 @Getter
 @Setter
-public class InfoOfFlat {
+public class InfoOfFlat implements Serializable {
 
     public static DateTimeFormatter formatter = DateTimeFormatter.ofPattern("dd/MM/yyyy HH:mm");
 
@@ -32,6 +37,7 @@ public class InfoOfFlat {
     @JoinColumn(name = "flat_id")
     private Flat flat;
 
+    @Lob
     private String info;
 
     public LocalDateTime getLocalDateTime() {
@@ -53,12 +59,28 @@ public class InfoOfFlat {
         return localDateTime.format(formatter);
     }
 
+    public void writeToFile(){
+        File file = new File(this.flat.getAddress());
+        PrintWriter pw = null;
+        try {
+            pw = new PrintWriter(file);
+        } catch (FileNotFoundException e) {
+            throw new RuntimeException(e);
+        }
+
+// Помещаем текст внутрь файла
+        pw.println(this);
+        System.out.println(this);
+        pw.close();
+
+    }
+
 
     @Override
     public String toString() {
         return "InfoOfFlat{" +
                 ", localDateTime=" + localDateTime +
-                ", info='" + info + '\'' +
+                ", info: \n " + info + '\'' +
                 '}';
 
 

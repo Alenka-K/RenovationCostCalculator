@@ -1,27 +1,27 @@
 <!DOCTYPE html>
-<html lang="en" xmlns:th="http://www.w3.org/1999/xhtml">
+<html lang="en" xmlns="http://www.w3.org/1999/xhtml" >
 <head>
     <meta charset="UTF-8">
-    <title>Add rectangle</title>
+    <title>Добавление прямоугольной комнаты</title>
     <link rel="stylesheet" type="text/css" th:href="@{/css/style.css}"/>
 </head>
 <body>
-<form method="PATCH" th:action="@{/rooms/saveRectangleRoom}" th:object="${room}">
+<form autocomplete="off" method="PATCH" th:action="@{/rooms/saveRectangleRoom}" th:object="${room}">
     <label for="name">Название</label>
     <input type="text" th:field="*{name}" id="name"/>
     <br>
-    <label for="length">Length</label>
-    <input type="number" th:field="*{length}" id="length"/>
+    <label for="length">Длина</label>
+    <input type="number"  name="length" id="length"/>
     <br>
-    <label for="width">Width</label>
-    <input type="number" th:field="*{width}" id="width"/>
+    <label for="width">Ширина</label>
+    <input type="number" name="width" id="width"/>
     <br>
-    <label for="height">height</label>
-    <input type="number" th:field="*{height}" id="height"/>
+    <label for="height">Высота</label>
+    <input type="number" name="height" id="height"/>
     <br>
     <input type="hidden" th:field="*{flat}" id="flat"/>
     <br>
-    <input type="submit" value="Add rectangleRoom"/>
+    <input type="submit" value="Добавить комнату"/>
 </form>
 
 </body>

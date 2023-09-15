@@ -11,4 +11,6 @@ import java.util.List;
 public interface InfoOfFlatRepository extends JpaRepository<InfoOfFlat, Long> {
 
     List<InfoOfFlat> findAllByFlat_Id(Long id);
+
+    InfoOfFlat findInfoOfFlatById(Long id);
 }

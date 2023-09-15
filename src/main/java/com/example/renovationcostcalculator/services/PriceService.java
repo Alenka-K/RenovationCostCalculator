@@ -1,8 +1,10 @@
 package com.example.renovationcostcalculator.services;
 
 
+import com.example.renovationcostcalculator.controllers.PriceController;
 import com.example.renovationcostcalculator.model.price.Price;
 import com.example.renovationcostcalculator.model.room.Room;
+import com.example.renovationcostcalculator.model.utils.PriceComparator;
 import com.example.renovationcostcalculator.repositories.PriceRepository;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
@@ -19,10 +21,10 @@ public class PriceService {
         this.priceRepository = priceRepository;
     }
 
-    public List<Price> findAll() {
-        Set<Price> priceSet = new HashSet<>(priceRepository.findAll());
-        List<Price> list = priceSet.stream().sorted(Comparator.comparing(Price::getSurface)).collect(Collectors.toList());
-        return list;
+    public Set<Price> findAll() {
+        Set<Price> priceSet = new TreeSet<>(new PriceComparator());
+        priceSet.addAll(priceRepository.findAll());
+        return priceSet;
     }
 
     public Price findByType(String type) {

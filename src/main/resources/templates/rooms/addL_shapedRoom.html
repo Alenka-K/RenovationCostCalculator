@@ -2,7 +2,7 @@
 <html lang="en" xmlns:th="http://www.w3.org/1999/xhtml">
 <head>
     <meta charset="UTF-8">
-    <title>Title</title>
+    <title>Добавление Г-образной комнаты</title>
     <link rel="stylesheet" type="text/css" th:href="@{/css/style.css}"/>
 </head>
 <body>
@@ -13,23 +13,23 @@
     <input type="text" th:field="*{name}" id="name"/>
     <br>
     <label for="height">Высота</label>
-    <input type="number" th:field="*{height}" id="height"/>
+    <input type="number" name="height" id="height"/>
     <br>
     <label for="length">Длинна</label>
-    <input type="number" th:field="*{length}" id="length"/>
+    <input type="number" name="length" id="length"/>
     <br>
     <label for="width">Ширина</label>
-    <input type="number" th:field="*{width}" id="width"/>
+    <input type="number" name="width" id="width"/>
     <br>
     <label for="lengthSmall">Длинна меньшая</label>
-    <input type="number" th:field="*{lengthSmall}" id="lengthSmall"/>
+    <input type="number" name="lengthSmall" id="lengthSmall"/>
     <br>
     <label for="widthSmall">Ширина меньшая</label>
-    <input type="number" th:field="*{widthSmall}" id="widthSmall"/>
+    <input type="number" name="widthSmall" id="widthSmall"/>
     <br>
     <input type="hidden" th:field="*{flat}" id="flat"/>
     <br>
-    <input type="submit"   value="Добавить размеры"/>
+    <input type="submit"   value="Добавить комнату"/>
 
 </form>
 </body>

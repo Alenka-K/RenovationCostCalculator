@@ -4,6 +4,8 @@ package com.example.renovationcostcalculator.model.price;
 import com.example.renovationcostcalculator.model.room.Room;
 import lombok.*;
 import jakarta.persistence.*;
+
+import java.util.List;
 import java.util.Set;
 
 
@@ -14,7 +16,7 @@ import java.util.Set;
 @AllArgsConstructor
 @EqualsAndHashCode
 @Table(name = "PRICE")
-public class Price implements Comparable<Price>{
+public class Price {
 
     @Id
     @Column(name = "type", nullable = false)
@@ -32,15 +34,13 @@ public class Price implements Comparable<Price>{
     @ManyToMany(fetch = FetchType.LAZY, mappedBy = "priceSet")
     private Set<Room> rooms;
 
+
+
+
     @Override
     public String toString() {
         return type + " (" +
                 amount + "грн/" + unit + ")" ;
     }
 
-    @Override
-    public int compareTo(Price o) {
-        return o.getType().compareTo(type);
-
-    }
 }

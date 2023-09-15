@@ -2,9 +2,8 @@ package com.example.renovationcostcalculator.model;
 
 import com.example.renovationcostcalculator.model.room.Room;
 import com.example.renovationcostcalculator.model.utils.Count;
-import lombok.*;
-
 import jakarta.persistence.*;
+import lombok.*;
 
 @Entity
 @Getter
@@ -12,13 +11,15 @@ import jakarta.persistence.*;
 @EqualsAndHashCode
 @NoArgsConstructor
 @AllArgsConstructor
-public class RoomWindow implements Opening{
+public class BalconyBlock implements Opening {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
     private double width;
     private double height;
+    private double widthSmall;
+    private double heightSmall;
     private double depth;
 
 
@@ -28,20 +29,27 @@ public class RoomWindow implements Opening{
 
 
 
+
+
     @Override
     public double area() {
-        return width*height/1000000;
+        double area = ((heightSmall*widthSmall) + height*(width-widthSmall))/1000000;
+        return area;
     }
 
     @Override
     public double getSlopeArea() {
-        double area = (depth*height*2) + (width*depth);
-        return Count.rounding(area/1000000);
+        double area = ((depth*height*2) + (width*depth))/1000000;
+        return Count.rounding(area);
     }
 
-    public double getSlopePerimeter() {
-        double perimeter = (height*2) + width;
-        return perimeter/1000;
+    public double getSlopePerimeter(){
+        return (height+width+height)/1000;
+    }
+
+    public double getBalconyBlockDoorAreaByFloor(){
+        double area = (depth*(width-widthSmall))/1000000;
+        return Count.rounding(area);
     }
 
 
@@ -50,6 +58,8 @@ public class RoomWindow implements Opening{
         return
                 " -(" + width +
                         "x" + height +
+                        "x" + heightSmall +
+                        "x" + widthSmall +
                         "x" + depth + ")\n";
     }
 }

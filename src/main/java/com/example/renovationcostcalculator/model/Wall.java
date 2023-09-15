@@ -1,6 +1,7 @@
 package com.example.renovationcostcalculator.model;
 
 import com.example.renovationcostcalculator.model.room.Room;
+import com.example.renovationcostcalculator.model.utils.Count;
 import jakarta.persistence.*;
 import lombok.EqualsAndHashCode;
 import lombok.Getter;
@@ -26,19 +27,18 @@ public class Wall {
     private Room room;
 
     public double getWallArea(){
-       double area = length * height;
-       return Math.ceil(area/10000)/100;
+       double area = length * height *2;
+       return Count.rounding(area/1000000);
     }
 
     public double getFloorAreaUnderWall() {
 
-        return (depth * length)/1000;
+        return Count.rounding((depth * length)/1000000);
     }
 
     @Override
     public String toString() {
         return "Wall{" +
-                "id=" + id +
                 ", length=" + length +
                 ", height=" + height +
                 ", depth=" + depth +

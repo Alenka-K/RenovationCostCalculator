@@ -3,6 +3,7 @@ package com.example.renovationcostcalculator.services;
 
 import com.example.renovationcostcalculator.model.Flat;
 import com.example.renovationcostcalculator.model.Form;
+import com.example.renovationcostcalculator.model.room.RectangleRoom;
 import com.example.renovationcostcalculator.model.room.Room;
 import com.example.renovationcostcalculator.repositories.RoomRepository;
 import org.hibernate.result.Output;
@@ -36,6 +37,8 @@ public class RoomService {
 
         return roomRepository.findById(id).orElse(null);
     }
+
+
     public List<Room> findAllByFlat_ID(Long id) {
 
         return roomRepository.findAllByFlat_Id(id);

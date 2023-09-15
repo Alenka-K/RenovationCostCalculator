@@ -33,6 +33,7 @@ public class InfoOfFlatController {
         info.setFlat(flatService.findById(id));
         info.setInfo(ViewInfoOfFlat.infoOfFlatToString(flatService.findById(id)));
         infoOfFlatService.save(info);
+        info.writeToFile();
         redirectAttributes.addAttribute("id", id);
         return "redirect:/flats/viewFlat/{id}";
     }
@@ -46,9 +47,8 @@ public class InfoOfFlatController {
 
     @GetMapping("/viewInfo/{id}")
     public String viewInfo(@PathVariable("id") Long id, Model model) {
-        model.addAttribute("flat", flatService.findById(id));
-        model.addAttribute("time", ViewInfoOfFlat.formatOfLocalDateTime(LocalDateTime.now()));
-        model.addAttribute("info", ViewInfoOfFlat.infoOfFlatToString(flatService.findById(id)));
+        model.addAttribute("time", infoOfFlatService.findById(id).dateTimeToString());
+        model.addAttribute("infoOfFlat", infoOfFlatService.findById(id));
 
         return "viewInfo";
     }
