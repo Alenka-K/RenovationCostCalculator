@@ -5,7 +5,6 @@ import com.example.renovationcostcalculator.model.room.Room;
 import lombok.*;
 import jakarta.persistence.*;
 
-import java.util.List;
 import java.util.Set;
 
 

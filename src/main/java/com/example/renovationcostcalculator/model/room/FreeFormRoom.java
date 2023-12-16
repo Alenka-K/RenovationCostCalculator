@@ -3,12 +3,8 @@ package com.example.renovationcostcalculator.model.room;
 import com.example.renovationcostcalculator.model.Door;
 import com.example.renovationcostcalculator.model.Form;
 import com.example.renovationcostcalculator.model.utils.Count;
-import jakarta.persistence.CascadeType;
 import jakarta.persistence.Entity;
-import jakarta.persistence.FetchType;
-import jakarta.persistence.OneToMany;
 import lombok.*;
-
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
@@ -51,7 +47,6 @@ public class FreeFormRoom extends Room{
 
     @Override
     public double getFloorPerimeter() {
-        List<Door> doors = super.getDoors();
         ArrayList<String> list = new ArrayList<>(Arrays.asList(listOfWallLengths.split("\\s*,\\s*")));
         double perimeter = list.stream().mapToDouble(Double::parseDouble).sum();
 

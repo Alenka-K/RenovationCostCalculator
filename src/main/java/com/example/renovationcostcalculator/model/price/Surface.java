@@ -1,6 +1,5 @@
 package com.example.renovationcostcalculator.model.price;
 
-import com.example.renovationcostcalculator.model.BalconyBlock;
 
 public enum Surface {
 
@@ -10,7 +9,7 @@ public enum Surface {
     WINDOWSLOPE,
     DOORSLOPE,
     BALCONYBLOCK,
-    NO;
+    NO
 
 
 }

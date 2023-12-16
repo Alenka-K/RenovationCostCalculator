@@ -4,8 +4,6 @@ import com.example.renovationcostcalculator.model.room.Room;
 import jakarta.persistence.*;
 import lombok.*;
 
-import java.util.Set;
-
 
 @Entity
 @Getter

@@ -9,7 +9,7 @@ table {
 th, td {
     border: 2px solid chocolate;
     background: antiquewhite;
-    padding: 0px;
+    padding: 0;
     text-align: left;
     word-break: keep-all;
 }
@@ -34,7 +34,7 @@ th, td {
 }
 
 .room, .calculateRoom {
-    padding: 0px;
+    padding: 0;
     border: 3px solid antiquewhite;
     background: antiquewhite;
 

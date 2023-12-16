@@ -1,7 +1,7 @@
 
     function myFunction(numberColumn) {
         // Объявить переменные
-        var input, filter, table, columnTable, tr, td, i, txtValue;
+        var input, filter, table, tr, td, i, txtValue;
         input = document.getElementById("myInput");
         filter = input.value.toUpperCase();
         table = document.getElementById("myTable");
