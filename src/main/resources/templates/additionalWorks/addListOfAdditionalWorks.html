@@ -1,0 +1,35 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.w3.org/1999/xhtml">
+    <head>
+        <meta charset="UTF-8">
+        <title>Прайс</title>
+        <link rel="stylesheet" type="text/css" th:href="@{/css/style.css}"/>
+    </head>
+<body>
+    <h1>Выберите дополнительные работы</h1>
+    <form th:method="PATH" th:action="@{/prices/saveListOfAdditionalWorks}" th:object="${room}">
+        <input type="hidden" name="id" id="id" th:field="*{id}" value="*{id}">
+    <table>
+        <tbody>
+            <tr>
+                <th>Вид работы</th>
+                <th>Цена, грн</th>
+                <th>За ед.измерения</th>
+                <th>Выбрать</th>
+
+            </tr>
+            <tr th:each="price:${listOfAdditionalWorks}" >
+                <td th:text="${price.getType}"></td>
+                <td th:text="${price.getAmount}"></td>
+                <td th:text="${price.getUnit}"></td>
+                <td><input type="checkbox"  name="priceIds" th:value="${price.getType}" /></td>
+                <td><input type="number"  name="valuePr" th:value="valuePr" /></td>
+            </tr>
+        </tbody>
+    </table>
+        <input type="submit" value="Добавить виды работ по комнате"/>
+    </form>
+
+
+</body>
+</html>

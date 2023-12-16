@@ -4,6 +4,7 @@ public class Count {
 
 
     public static double rounding(double x){
-        return Math.ceil(x*100)/100;
+        double temp =  Math.round(x*100);
+        return temp/100;
     }
 }

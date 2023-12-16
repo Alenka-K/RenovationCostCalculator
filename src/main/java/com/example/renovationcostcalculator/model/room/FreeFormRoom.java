@@ -55,7 +55,7 @@ public class FreeFormRoom extends Room{
         ArrayList<String> list = new ArrayList<>(Arrays.asList(listOfWallLengths.split("\\s*,\\s*")));
         double perimeter = list.stream().mapToDouble(Double::parseDouble).sum();
 
-        return perimeter/1000;
+        return Count.rounding(perimeter/1000);
     }
 
     @Override

@@ -1,7 +1,5 @@
 /* Общие стили таблицы */
 
-
-
 table {
     border-collapse: collapse;
     width: 100%;
@@ -13,6 +11,7 @@ th, td {
     background: antiquewhite;
     padding: 0px;
     text-align: left;
+    word-break: keep-all;
 }
 
 .room li {
@@ -20,19 +19,18 @@ th, td {
     padding-top: 5px;
 }
 
-/* Стили для комнат */
 .winRoom {
     width: 50px;
     height: 50px;
     border-radius: 5px;
-    border: 3px solid coral;
+    border: 3px solid green;
 }
 
 .doorsRoom {
     width: 40px;
     height: 70px;
     border-radius: 5px;
-    border: 3px solid coral;
+    border: 3px solid green;
 }
 
 .room, .calculateRoom {
@@ -42,8 +40,6 @@ th, td {
 
 }
 
-
-/* Стили для заголовков */
 h1 {
     font-size: 36px;
     text-align: center;
@@ -115,4 +111,31 @@ input[type="number"]::-webkit-inner-spin-button {
 
 .deleteA {
     color: red;
+}
+.deleteB {
+    display: inline-block;
+    border-radius: 10px;
+    text-decoration: none;
+    letter-spacing: 1px;
+    margin: 5px 5px;
+    padding: 5px 5px;
+    font-size: 15px;
+    font-weight: bold;
+    background: #E8CCB5;
+    color: red;
+    writing-mode: vertical-rl;
+    text-orientation: upright;
+}
+.addedR, .addedL, .addedF {
+    display: inline-block;
+    border-radius: 5px;
+    border: 3px solid green;
+    text-decoration: none;
+    letter-spacing: 1px;
+    margin: 5px 5px;
+    padding: 5px 5px;
+    font-size: 15px;
+    font-weight: bold;
+    background: greenyellow;
+    color: green;
 }

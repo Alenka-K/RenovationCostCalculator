@@ -10,8 +10,7 @@ public enum Surface {
     WINDOWSLOPE,
     DOORSLOPE,
     BALCONYBLOCK,
-
-    ADDITIONAL;
+    NO;
 
 
 }

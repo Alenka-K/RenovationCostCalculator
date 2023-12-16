@@ -3,8 +3,11 @@ package com.example.renovationcostcalculator.model.room;
 
 import com.example.renovationcostcalculator.model.*;
 //import com.example.renovationcostcalculator.model.price.AdditionalWork;
+import com.example.renovationcostcalculator.model.price.AdditionalWork;
 import com.example.renovationcostcalculator.model.price.Price;
 import com.example.renovationcostcalculator.model.price.Surface;
+import com.example.renovationcostcalculator.model.price.Unit;
+import com.example.renovationcostcalculator.model.utils.AdditionalWorkComparator;
 import com.example.renovationcostcalculator.model.utils.Count;
 import com.example.renovationcostcalculator.model.utils.PriceComparator;
 import lombok.EqualsAndHashCode;
@@ -12,7 +15,6 @@ import lombok.Getter;
 import lombok.Setter;
 
 import jakarta.persistence.*;
-import org.springframework.web.bind.annotation.RequestParam;
 
 import java.util.*;
 
@@ -54,11 +56,9 @@ public abstract class Room {
             inverseJoinColumns = @JoinColumn(name = "room_id"))
     private Set<Price> priceSet;
 
-//    @ManyToMany(cascade = CascadeType.PERSIST, fetch = FetchType.LAZY)
-//    @JoinTable(
-//            name = "room_additionalWork",
-//            inverseJoinColumns = @JoinColumn(name = "room_id"))
-//    private Set<AdditionalWork> additionalWorks;
+
+    @OneToMany(cascade = CascadeType.ALL, fetch = FetchType.LAZY, mappedBy = "room")
+    private List<AdditionalWork> additionalWorks = new ArrayList<>();
 
 
     @ManyToOne(fetch = FetchType.LAZY)
@@ -74,7 +74,7 @@ public abstract class Room {
                 area = area + wall.getWallArea();
             }
         }
-        return area;
+        return Count.rounding(area);
     }
 
     public double getWallsArea(){
@@ -104,9 +104,9 @@ public abstract class Room {
                 area = area - wall.getFloorAreaUnderWall();
             }
         }
-        return area;
+        return Count.rounding(area);
 
-    };
+    }
     abstract double getFloorPerimeter();
 
     abstract double getCeilingArea();
@@ -120,7 +120,7 @@ public abstract class Room {
                 temp = temp - door.getWidth()/1000;
             }
         }
-        return temp;
+        return Count.rounding(temp);
     }
     public double getWindowSlopeArea(){
         double windowSlopeArea = 0;
@@ -129,7 +129,7 @@ public abstract class Room {
                 windowSlopeArea = windowSlopeArea + roomWindow.getSlopeArea();
             }
         }
-        return windowSlopeArea;
+        return Count.rounding(windowSlopeArea);
     }
 
     public double getWindowSlopePerimeter(){
@@ -139,10 +139,10 @@ public abstract class Room {
                 windowSlopePerimeter = windowSlopePerimeter + roomWindow.getSlopePerimeter();
             }
         }
-        return windowSlopePerimeter;
+        return Count.rounding(windowSlopePerimeter);
     }
     public double getDoorSlopeArea(){
-        double doorSlopeArea = 0;
+        double doorSlopeArea = 0.0;
         if (!doors.isEmpty()){
             for (Door door : doors) {
                 doorSlopeArea = doorSlopeArea + door.getSlopeArea();
@@ -152,133 +152,153 @@ public abstract class Room {
     }
 
     public double getBalconyBlockSlopeArea(){
-        double balconyBlockSlopeArea = 0;
+        double balconyBlockSlopeArea = 0.0;
         if (!balconyBlocks.isEmpty()){
             for (BalconyBlock balconyBlock : balconyBlocks) {
                 balconyBlockSlopeArea = balconyBlockSlopeArea + balconyBlock.getSlopeArea();
             }
         }
-        return balconyBlockSlopeArea;
+        return Count.rounding(balconyBlockSlopeArea);
     }
 
     public double getSlopeArea(){
-        return this.getDoorSlopeArea()+this.getWindowSlopeArea()+ this.getBalconyBlockSlopeArea();
+        return Count.rounding(this.getDoorSlopeArea()+this.getWindowSlopeArea()+ this.getBalconyBlockSlopeArea());
     }
 
 
     public double getDoorPerimeter(){
-        double doorPerimeter = 0;
+        double doorPerimeter = 0.0;
         if (!doors.isEmpty()){
             for (Door door : doors) {
                 doorPerimeter = doorPerimeter + door.getPerimeter();
             }
         }
-        return doorPerimeter;
+        return Count.rounding(doorPerimeter);
     }
 
 
     public double getBalconyBlockSlopePerimeter(){
-        double balconyBlockSlopePerimeter = 0;
+        double balconyBlockSlopePerimeter = 0.0;
         if (!balconyBlocks.isEmpty()){
             for (BalconyBlock balconyBlock : balconyBlocks) {
                 balconyBlockSlopePerimeter = balconyBlockSlopePerimeter + balconyBlock.getSlopePerimeter();
             }
         }
-        return balconyBlockSlopePerimeter;
+        return Count.rounding(balconyBlockSlopePerimeter);
     }
 
     public TreeMap<Price, Double> priceAndValueForCalculation(){
         TreeMap<Price, Double> mapForCalculation = new TreeMap<>();
         for (Price price: priceSet) {
-            if (price.getSurface() == Surface.WALL & price.getUnit().equals("м2")) {
+            if (price.getSurface() == Surface.WALL & price.getUnit() == Unit.м2) {
                 mapForCalculation.put(price, this.getWallsArea());
             }
-            if (price.getSurface() == Surface.FLOOR & price.getUnit().equals("мп")) {
+            if (price.getSurface() == Surface.FLOOR & price.getUnit() == Unit.мп) {
                 mapForCalculation.put(price, this.getFloorPerimeter());
             }
-            if (price.getSurface() == Surface.FLOOR & price.getUnit().equals("м2")) {
+            if (price.getSurface() == Surface.FLOOR & price.getUnit() == Unit.м2) {
                 mapForCalculation.put(price, this.getAllFloorArea());
             }
-            if (price.getSurface() == Surface.CEILING & price.getUnit().equals("м2")) {
+            if (price.getSurface() == Surface.CEILING & price.getUnit() ==Unit.м2) {
                 mapForCalculation.put(price, getCeilingArea());
             }
-            if (price.getSurface() == Surface.CEILING & price.getUnit().equals("мп")) {
+            if (price.getSurface() == Surface.CEILING & price.getUnit() == Unit.мп) {
                 mapForCalculation.put(price, getCeilingPerimeter());
             }
-            if (price.getSurface() == Surface.WINDOWSLOPE & price.getUnit().equals("м2")) {
+            if (price.getSurface() == Surface.WINDOWSLOPE & price.getUnit() == Unit.м2) {
                 mapForCalculation.put(price, getWindowSlopeArea());
             }
-            if (price.getSurface() == Surface.DOORSLOPE & price.getUnit().equals("м2")) {
+            if (price.getSurface() == Surface.DOORSLOPE & price.getUnit() == Unit.м2) {
                 mapForCalculation.put(price, getDoorSlopeArea());
             }
-            if (price.getSurface() == Surface.DOORSLOPE & price.getUnit().equals("мп")) {
+            if (price.getSurface() == Surface.DOORSLOPE & price.getUnit() == Unit.мп) {
                 mapForCalculation.put(price, getDoorPerimeter());
             }
-            if (price.getSurface() == Surface.BALCONYBLOCK & price.getUnit().equals("м2")) {
+            if (price.getSurface() == Surface.BALCONYBLOCK & price.getUnit() == Unit.м2) {
                 mapForCalculation.put(price, getBalconyBlockSlopeArea());
             }
-            if   (price.getSurface() == Surface.BALCONYBLOCK & price.getUnit().equals("мп")) {
+            if   (price.getSurface() == Surface.BALCONYBLOCK & price.getUnit() == Unit.мп) {
                 mapForCalculation.put(price, getBalconyBlockSlopePerimeter());
             }
         }
         return mapForCalculation;
     }
-    public TreeMap<Price, List<Double>> getCalculateRoom(){
+    public TreeMap<Price, List<Double>> getCalculationOfCostOfBasicWork(){
 
-        TreeMap<Price, List<Double>> costAllOfWorkOnRoom = new TreeMap<>(new PriceComparator());
+        TreeMap<Price, List<Double>> costCalculation = new TreeMap<>(new PriceComparator());
         for (Price price: priceSet) {
-            if (price.getSurface() == Surface.WALL & price.getUnit().equals("м2")) {
+            if (price.getSurface() == Surface.WALL & price.getUnit() == Unit.м2) {
                 double costPerRoom = this.getWallsArea() * price.getAmount();
-                costAllOfWorkOnRoom.put(price, List.of(this.getWallsArea(),Count.rounding(costPerRoom)));
+                costCalculation.put(price, List.of(this.getWallsArea(),Count.rounding(costPerRoom)));
             }
-            if (price.getSurface() == Surface.FLOOR & price.getUnit().equals("мп")) {
+            if (price.getSurface() == Surface.FLOOR & price.getUnit() == Unit.мп) {
                 double costPerRoom = this.getFloorPerimeter() * price.getAmount();
-                costAllOfWorkOnRoom.put(price, List.of(this.getFloorPerimeter(),Count.rounding(costPerRoom)));
+                costCalculation.put(price, List.of(this.getFloorPerimeter(),Count.rounding(costPerRoom)));
             }
-            if (price.getSurface() == Surface.FLOOR & price.getUnit().equals("м2")) {
+            if (price.getSurface() == Surface.FLOOR & price.getUnit() == Unit.м2) {
                 double costPerRoom =this.getAllFloorArea()  * price.getAmount();
-                costAllOfWorkOnRoom.put(price, List.of(this.getAllFloorArea(),Count.rounding(costPerRoom)));
+                costCalculation.put(price, List.of(this.getAllFloorArea(),Count.rounding(costPerRoom)));
             }
-            if (price.getSurface() == Surface.CEILING & price.getUnit().equals("м2")) {
+            if (price.getSurface() == Surface.CEILING & price.getUnit() == Unit.м2) {
                 double costPerRoom = getCeilingArea() * price.getAmount();
-                costAllOfWorkOnRoom.put(price, List.of(getCeilingArea(),Count.rounding(costPerRoom)));
+                costCalculation.put(price, List.of(getCeilingArea(),Count.rounding(costPerRoom)));
             }
-            if (price.getSurface() == Surface.CEILING & price.getUnit().equals("мп")) {
+            if (price.getSurface() == Surface.CEILING & price.getUnit() == Unit.мп) {
                 double costPerRoom = getCeilingPerimeter() * price.getAmount();
-                costAllOfWorkOnRoom.put(price, List.of(getCeilingPerimeter(),Count.rounding(costPerRoom)));
+                costCalculation.put(price, List.of(getCeilingPerimeter(),Count.rounding(costPerRoom)));
             }
-            if (price.getSurface() == Surface.WINDOWSLOPE & price.getUnit().equals("м2")) {
+            if (price.getSurface() == Surface.WINDOWSLOPE & price.getUnit() == Unit.м2) {
                 double costPerRoom = getWindowSlopeArea() * price.getAmount();
-                costAllOfWorkOnRoom.put(price, List.of(getWindowSlopeArea(),Count.rounding(costPerRoom)));
+                costCalculation.put(price, List.of(getWindowSlopeArea(),Count.rounding(costPerRoom)));
             }
-            if (price.getSurface() == Surface.WINDOWSLOPE & price.getUnit().equals("мп")) {
+            if (price.getSurface() == Surface.WINDOWSLOPE & price.getUnit() == Unit.мп) {
                 double costPerRoom = getWindowSlopePerimeter() * price.getAmount();
-                costAllOfWorkOnRoom.put(price, List.of(getWindowSlopePerimeter(),Count.rounding(costPerRoom)));
+                costCalculation.put(price, List.of(getWindowSlopePerimeter(),Count.rounding(costPerRoom)));
             }
-            if (price.getSurface() == Surface.DOORSLOPE & price.getUnit().equals("м2")) {
+            if (price.getSurface() == Surface.DOORSLOPE & price.getUnit() == Unit.м2) {
                 double costPerRoom = getDoorSlopeArea() * price.getAmount();
-                costAllOfWorkOnRoom.put(price, List.of(getDoorSlopeArea(),Count.rounding(costPerRoom)));
+                costCalculation.put(price, List.of(getDoorSlopeArea(),Count.rounding(costPerRoom)));
             }
-            if (price.getSurface() == Surface.DOORSLOPE & price.getUnit().equals("мп")) {
+            if (price.getSurface() == Surface.DOORSLOPE & price.getUnit() == Unit.мп) {
                 double costPerRoom = getDoorPerimeter() * price.getAmount();
-                costAllOfWorkOnRoom.put(price, List.of(getDoorPerimeter(),Count.rounding(costPerRoom)));
+                costCalculation.put(price, List.of(getDoorPerimeter(),Count.rounding(costPerRoom)));
             }
-            if (price.getSurface() == Surface.BALCONYBLOCK & price.getUnit().equals("м2")) {
+            if (price.getSurface() == Surface.BALCONYBLOCK & price.getUnit() == Unit.м2) {
                 double costPerRoom = getBalconyBlockSlopeArea() * price.getAmount();
-                costAllOfWorkOnRoom.put(price, List.of(getBalconyBlockSlopeArea(),Count.rounding(costPerRoom)));
+                costCalculation.put(price, List.of(getBalconyBlockSlopeArea(),Count.rounding(costPerRoom)));
             }
-            if   (price.getSurface() == Surface.BALCONYBLOCK & price.getUnit().equals("мп")) {
+            if   (price.getSurface() == Surface.BALCONYBLOCK & price.getUnit() == Unit.мп) {
                     double costPerRoom = getBalconyBlockSlopePerimeter() * price.getAmount();
-                    costAllOfWorkOnRoom.put(price, List.of(getBalconyBlockSlopePerimeter(),Count.rounding(costPerRoom)));
+                    costCalculation.put(price, List.of(getBalconyBlockSlopePerimeter(),Count.rounding(costPerRoom)));
             }
         }
 
-        return costAllOfWorkOnRoom;
+        return costCalculation;
+    }
+
+    public TreeMap<AdditionalWork, Double> getCalculationOfCostOfAdditionalWork(){
+        TreeMap<AdditionalWork, Double> costCalculation = new TreeMap<>(new AdditionalWorkComparator());
+        for (AdditionalWork additionalWork : additionalWorks) {
+            Double value = additionalWork.getValueForCalculation()*additionalWork.getPrice().getAmount();
+            costCalculation.put(additionalWork, value);
+        }
+        System.out.println(costCalculation);
+        return costCalculation;
+    }
+
+
+    public Double getAllCostOfBasicWork(){
+        return Count.rounding(getCalculationOfCostOfBasicWork().values().stream().map(x -> x.get(1)).mapToDouble(Double::doubleValue).sum());
+    }
+
+    public Double getAllCostOfAdditionalWork(){
+        return Count.rounding(getCalculationOfCostOfAdditionalWork().values().stream().mapToDouble(Double::doubleValue).sum());
     }
 
     public Double getAllCost(){
-        return Count.rounding(getCalculateRoom().values().stream().map(x -> x.get(1)).mapToDouble(Double::doubleValue).sum());
+        return getAllCostOfBasicWork()+getAllCostOfAdditionalWork();
     }
+
 
     @Override
     public String toString() {

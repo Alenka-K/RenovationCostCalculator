@@ -1,0 +1,53 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.w3.org/1999/xhtml">
+    <head>
+        <meta charset="UTF-8">
+        <title>Прайс дополнительных работ</title>
+        <link rel="stylesheet" type="text/css" th:href="@{/css/searching.css}"/>
+        <script th:src="@{/js/function.js}"></script>
+    </head>
+
+<body>
+    <h1>Прайс дополнительных работ</h1>
+    <form th:method="PATH" th:action="@{/additionalWorks/saveAdditionalWorks}" th:object="${room}">
+        <input type="hidden" name="id" id="id" th:field="*{id}" value="*{id}">
+    <table id="myTable">
+
+        <tbody>
+            <tr>
+                <th>Группа поверхностей</th>
+                <th>Выбрать/Расчетная величина </th>
+                <th>Вид работы<input type="text" id="myInput" onkeyup="myFunction(2)" placeholder="Поиск по виду работ"></th>
+                <th>Цена, грн</th>
+                <th>За ед.измерения</th>
+
+            </tr>
+            <tr th:each="additional:${additionalWorkList}" >
+                <td th:text="${additional.getPrice().getSurface}"></td>
+                <td><input type="checkbox"  name="priceIds" th:value="${additional.getPrice().getType}" checked onclick="if(this.checked){this.nextSibling.style.display=''}
+                    else
+                    {this.nextSibling.style.display='none';  this.nextSibling.value='';}"/><input name="valuePr" type="text" th:value="${additional.getValueForCalculation()}"></td>
+                <td th:text="${additional.getPrice().getType}"></td>
+                <td th:text="${additional.getPrice().getAmount}"></td>
+                <td th:text="${additional.getPrice().getUnit}"></td>
+
+            </tr>
+            <tr th:each="price:${prices}" >
+                <td th:text="${price.getSurface}"></td>
+                <td>
+                    <input type="checkbox" name="priceIds" th:value="${price.getType}" onclick="if(this.checked){this.nextSibling.style.display=''}
+                    else
+                    {this.nextSibling.style.display='none';  this.nextSibling.value='';}"><input style="display: none" name="valuePr" type="text">
+                </td>
+                <td th:text="${price.getType}"></td>
+                <td th:text="${price.getAmount}"></td>
+                <td th:text="${price.getUnit}"></td>
+            </tr>
+        </tbody>
+    </table>
+        <input type="submit" value="Добавить виды работ по комнате"/>
+    </form>
+
+
+</body>
+</html>

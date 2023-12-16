@@ -28,7 +28,8 @@ public class Price {
 
     private int amount;
 
-    private String unit;
+    @Enumerated(EnumType.STRING)
+    private Unit unit;
 
 
     @ManyToMany(fetch = FetchType.LAZY, mappedBy = "priceSet")
