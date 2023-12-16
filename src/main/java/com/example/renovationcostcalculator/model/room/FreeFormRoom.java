@@ -1,13 +1,11 @@
 package com.example.renovationcostcalculator.model.room;
 
-import com.example.renovationcostcalculator.model.Door;
 import com.example.renovationcostcalculator.model.Form;
 import com.example.renovationcostcalculator.model.utils.Count;
 import jakarta.persistence.Entity;
 import lombok.*;
 import java.util.ArrayList;
 import java.util.Arrays;
-import java.util.List;
 
 
 @Entity
