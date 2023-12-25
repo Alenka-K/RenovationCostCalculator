@@ -63,7 +63,7 @@
                                     <span th:text="${room.rectanglesToExtractFromCircumscribedRectangle}"></span></p>
                             </span>
                         </span>
-                        <a th:href="@{../../rooms/editRoomDimensions/{id}(id=${room.id})}">Изменить</a>
+                        <a th:href="@{../../rooms/editRoomDimensions/{id}(id=${room.id})}">Изменить размеры</a>
                     </td>
                     <td style="white-space: nowrap">
                         <p th:if="${room.getRoomWindows}" >
@@ -178,6 +178,8 @@
                         <a th:href="@{../../prices/editPriceSet/{id}(id=${room.id})}">Просмотреть или изменить прайс работ по комнате</a>
                         <br>
                         <a th:href="@{../../additionalWorks/addAdditionalWorks/{id}(id=${room.id})}">Добавить дополнительные работы по комнате</a>
+                        <br>
+                        <a th:href="@{../../prices/viewPriceSet/{id}(id=${room.id})}">Посмотреть затраты времени по комнате</a>
                         <br>
 
                     </td>

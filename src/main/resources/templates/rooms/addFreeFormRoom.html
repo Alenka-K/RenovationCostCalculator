@@ -2,31 +2,24 @@
 <html lang="en" xmlns:th="http://www.w3.org/1999/xhtml">
 <head>
     <meta charset="UTF-8">
-    <title>Add rectangle</title>
-    <link rel="stylesheet" type="text/css" th:href="@{/css/style.css}"/>
+    <title>Добавление комнаты произвольной формы</title>
+    <link rel="stylesheet" type="text/css" th:href="@{/css/styleS.css}"/>
 </head>
 <body>
 <form method="PATCH" th:action="@{/rooms/saveFreeFormRoom}" th:object="${room}">
-    <label for="name">Название</label>
-    <input type="text" th:field="*{name}" id="name"/>
-    <br>
-    <label for="lengthOfCircumscribedRectangle">Введите длину прямоугольника в который можно вписать форму комнаты</label>
-    <input type="number" name="lengthOfCircumscribedRectangle" id="lengthOfCircumscribedRectangle"/>
-    <br>
-    <label for="widthOfCircumscribedRectangle">Введите ширину прямоугольника в который можно вписать форму комнаты</label>
-    <input type="number" name="widthOfCircumscribedRectangle" id="widthOfCircumscribedRectangle"/>
-    <br>
-    <label for="height">Высота комнаты</label>
-    <input type="number" name="height" id="height"/>
-    <br>
+    <label for="name">Название :
+        <input type="text" th:field="*{name}" id="name"/></label>
+    <label for="lengthOfCircumscribedRectangle">Введите длину прямоугольника в который можно вписать форму комнаты :
+        <input type="number" name="lengthOfCircumscribedRectangle" id="lengthOfCircumscribedRectangle"/></label>
+    <label for="widthOfCircumscribedRectangle">Введите ширину прямоугольника в который можно вписать форму комнаты :
+    <input type="number" name="widthOfCircumscribedRectangle" id="widthOfCircumscribedRectangle"/></label>
+    <label for="height">Высота комнаты :
+    <input type="number" name="height" id="height"/></label>
     <input type="hidden" th:field="*{flat}" id="flat"/>
-    <br>
-    <label for="listOfWallLengths">Введите длины стен через запятую:</label>
-    <input type="text" th:field="*{listOfWallLengths}" name="listOfWallLengths" id="listOfWallLengths"/>
-    <br>
-    <label for="rectanglesToExtractFromCircumscribedRectangle">Введите размеры прямоугольников для вычета через запятую (пример 1200/1800,1400/1000):</label>
-    <input type="text" th:field="*{rectanglesToExtractFromCircumscribedRectangle}" name="rectanglesToExtractFromCircumscribedRectangle" id="rectanglesToExtractFromCircumscribedRectangle"/>
-    <br>
+    <label for="listOfWallLengths">Введите длины стен через запятую :
+    <input type="text" th:field="*{listOfWallLengths}" name="listOfWallLengths" id="listOfWallLengths"/></label>
+    <label for="rectanglesToExtractFromCircumscribedRectangle">Введите размеры прямоугольников для вычета через запятую (пример 1200/1800,1400/1000) :
+    <input type="text" th:field="*{rectanglesToExtractFromCircumscribedRectangle}" name="rectanglesToExtractFromCircumscribedRectangle" id="rectanglesToExtractFromCircumscribedRectangle"/></label>
     <input type="submit" value="Добавить"/>
 </form>
 

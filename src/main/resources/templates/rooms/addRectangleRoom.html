@@ -7,20 +7,15 @@
 </head>
 <body>
 <form autocomplete="off" method="PATCH" th:action="@{/rooms/saveRectangleRoom}" th:object="${room}">
-    <label for="name">Название</label>
-    <input type="text" th:field="*{name}" id="name"/>
-    <br>
-    <label for="length">Длина</label>
-    <input type="number"  name="length" id="length"/>
-    <br>
-    <label for="width">Ширина</label>
-    <input type="number" name="width" id="width"/>
-    <br>
-    <label for="height">Высота</label>
-    <input type="number" name="height" id="height"/>
-    <br>
-    <input type="hidden" th:field="*{flat}" id="flat"/>
-    <br>
+    <label for="name">Название :
+    <input type="text" th:field="*{name}" id="name"/></label>
+    <label for="length">Длина :
+    <input type="number"  name="length" id="length"/></label>
+    <label for="width">Ширина :
+    <input type="number" name="width" id="width"/></label>
+    <label for="height">Высота :
+    <input type="number" name="height" id="height"/></label>
+    <input type="hidden" th:field="*{flat}" id="flat"/></label>
     <input type="submit" value="Добавить комнату"/>
 </form>
 

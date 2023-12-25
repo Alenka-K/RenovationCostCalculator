@@ -10,20 +10,14 @@
 
 <form method="PATCH" th:action="@{/doors/saveDoor}" th:object="${door}">
     <input type="hidden" th:field="*{id}" id="id"/>
-    <br>
     <input type="hidden" th:field="*{room}" id="room"/>
-    <br>
-    <label for="height">Высота</label>
-    <input type="number" name="height" id="height"/>
-    <br>
-    <label for="width">Ширина</label>
-    <input type="number" name="width" id="width"/>
-    <br>
-    <label for="depth">Глубина</label>
-    <input type="number" name="depth" id="depth"/>
-    <br>
+    <label for="height">Высота :
+    <input type="number" name="height" id="height"/></label>
+    <label for="width">Ширина :
+    <input type="number" name="width" id="width"/></label>
+    <label for="depth">Глубина :
+    <input type="number" name="depth" id="depth"/></label>
     <input type="submit" value="Добавить двери"/>
-    <br>
 </form>
 
 </body>

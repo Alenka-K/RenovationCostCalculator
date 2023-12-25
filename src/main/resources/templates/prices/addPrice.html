@@ -3,25 +3,24 @@
 <head>
     <meta charset="UTF-8">
     <title>Добавление вида работ в прайс-лист</title>
-    <link rel="stylesheet" type="text/css" th:href="@{/css/style.css}"/>
+    <link rel="stylesheet" type="text/css" th:href="@{/css/styleS.css}"/>
 </head>
 <body>
 <h2>Добавте вид работ в прайс-лист</h2>
 <form th:method="post" th:action="@{/prices}" th:object="${price}">
-    <label for="surface">Выберите группу поверхностей</label>
+    <label for="surface">Выберите группу поверхностей :
         <select type="text" th:field="*{surface}" id="surface">
             <option th:each="surface : ${T(com.example.renovationcostcalculator.model.price.Surface).values()}"
                     th:value="${surface}"
                     th:text="${surface}">
             </option>
         </select>
-        <br>
-    <label for="type">Вид работы</label>
-    <input type="text" th:field="*{type}" id="type"/>
-    <br>
-    <label for="amount">Цена</label>
-    <input type="text" th:field="*{amount}" id="amount"/> грн за
+    </label>
+    <label for="type">Вид работы :
+    <input type="text" th:field="*{type}" id="type"/></label>
 
+    <label for="amount">Цена :
+    <input type="text" th:field="*{amount}" id="amount"/> грн за
         <input type="radio" th:field="*{unit}" name="unit" value="м2">
         м2
 
@@ -29,8 +28,12 @@
         мп
         <input type="radio" th:field="*{unit}" name="unit" value="шт">
         шт
+    </label>
+    <label for="leadTime">Время выполнения работы:
+    <input type="text" th:field="*{leadTime}" id="leadTime"/> мин за ед.изм.</label>
 
-    <br>
+
+
     <input type="submit" value="Добавить"/>
 </form>
 

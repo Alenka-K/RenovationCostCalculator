@@ -4,24 +4,20 @@
 <head>
     <meta charset="UTF-8">
     <title>Обновить данные</title>
+    <link rel="stylesheet" type="text/css" th:href="@{/css/styleS.css}"/>
 </head>
 <body>
+<h2>Измените размеры стены-перегородки:</h2>
 <form th:method="patch" th:action="@{/walls/updateWall/{id}(id=${wall.id})}" th:object="${wall}">
     <input type="number" hidden th:value="${wall.id}" name="id" id="id"/>
-    <br>
-    <label for="height">Высота стены: </label>
-    <input type="number" th:value="${wall.height}"  name="height" id="height"/>
-    <br>
-    <label for="length">Длина стены: </label>
-    <input type="number" th:value="${wall.length}" name="length" id="length"/>
-    <br>
-    <label for="depth">Толщина стены: </label>
-    <input type="number" th:value="${wall.depth}" name="depth" id="depth"/>
-    <br>
+    <label for="height">Высота стены:
+    <input type="number" th:value="${wall.height}"  name="height" id="height"/></label>
+    <label for="length">Длина стены:
+    <input type="number" th:value="${wall.length}" name="length" id="length"/></label>
+    <label for="depth">Толщина стены:
+    <input type="number" th:value="${wall.depth}" name="depth" id="depth"/></label>
     <div >
-        <label >Комната: </label>
-        <input type="number" th:value="${room.id}"  name="roomId"/>
-    <br>
+        <input type="number" hidden th:value="${room.id}"  name="roomId"/></label>
     </div>
     <input type="submit" value="Обновить"/>
 </form>

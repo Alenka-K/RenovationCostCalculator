@@ -282,10 +282,30 @@ public abstract class Room {
             Double value = additionalWork.getValueForCalculation()*additionalWork.getPrice().getAmount();
             costCalculation.put(additionalWork, value);
         }
-        System.out.println(costCalculation);
         return costCalculation;
     }
 
+    public TreeMap<Price, List<Double>> getCalculationOfTimeSpentOnBasicWork() {
+        TreeMap<Price, List<Double>> timeCalculation = new TreeMap<>(new PriceComparator());
+
+        for (Map.Entry<Price, List<Double>> entry : getCalculationOfCostOfBasicWork().entrySet()) {
+            Double value = entry.getKey().getLeadTime()*entry.getValue().get(0);
+            timeCalculation.put(entry.getKey(), List.of(entry.getValue().get(0), value));
+        }
+        for (AdditionalWork additionalWork : additionalWorks) {
+            if (timeCalculation.containsKey(additionalWork.getPrice())){
+                Double volume = timeCalculation.get(additionalWork.getPrice()).get(0) + additionalWork.getValueForCalculation();
+                timeCalculation.put(additionalWork.getPrice(), List.of(volume, volume*additionalWork.getPrice().getLeadTime()));
+            }else{
+                Double value = additionalWork.getValueForCalculation()* additionalWork.getPrice().getLeadTime();
+                timeCalculation.put(additionalWork.getPrice(), List.of(additionalWork.getValueForCalculation(), value));
+            }
+
+
+        }
+
+        return timeCalculation;
+    }
 
     public Double getAllCostOfBasicWork(){
         return Count.rounding(getCalculationOfCostOfBasicWork().values().stream().map(x -> x.get(1)).mapToDouble(Double::doubleValue).sum());

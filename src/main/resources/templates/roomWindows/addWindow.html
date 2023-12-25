@@ -3,28 +3,21 @@
 <head>
     <meta charset="UTF-8">
     <title>Добавление окна</title>
-    <link rel="stylesheet" type="text/css" th:href="@{/css/style.css}"/>
+    <link rel="stylesheet" type="text/css" th:href="@{/css/styleS.css}"/>
 </head>
 <body>
 <h2>Введите размеры окна:</h2>
 
 <form method="PATCH" th:action="@{/roomWindows/saveWindow}" th:object="${roomWindow}">
     <input type="hidden" th:field="*{id}" id="id"/>
-    <br>
     <input type="hidden" th:field="*{room}" id="room"/>
-    <br>
-    <label for="height">Высота</label>
-    <input type="number" name="height" id="height"/>
-    <br>
-    <label for="width">Ширина</label>
-    <input type="number" name="width" id="width"/>
-    <br>
-    <label for="depth">Глубина</label>
-    <input type="number" name="depth" id="depth"/>
-    <br>
+    <label for="height">Высота :
+    <input type="number" name="height" id="height"/></label>
+    <label for="width">Ширина :
+    <input type="number" name="width" id="width"/></label>
+    <label for="depth">Глубина :
+    <input type="number" name="depth" id="depth"/></label>
     <input type="submit" value="Добавить окно"/>
-    <br>
 </form>
-
 </body>
 </html>

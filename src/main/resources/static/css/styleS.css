@@ -40,6 +40,11 @@ th, td {
 
 }
 
+.leadTime {
+    width: auto;
+    table-layout: fixed;
+}
+
 h1 {
     font-size: 36px;
     text-align: center;
@@ -56,6 +61,7 @@ h2 {
 
 /* Стили для формы */
 form {
+    line-height: 2em;
     margin-bottom: 20px;
 }
 

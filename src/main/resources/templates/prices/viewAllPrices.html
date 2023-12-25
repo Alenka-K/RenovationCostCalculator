@@ -18,6 +18,7 @@
                     <input type="text" id="myInput" onkeyup="myFunction(1)" placeholder="Поиск по виду работ"></th>
                 <th>Цена, грн</th>
                 <th>За ед.измерения</th>
+                <th>Время выполнения за ед.изм</th>
                 <th>Изменить</th>
                 <th>Удалить</th>
             </tr>
@@ -26,6 +27,7 @@
                 <td th:text="${price.getType}"></td>
                 <td th:text="${price.getAmount}"></td>
                 <td th:text="${price.getUnit}"></td>
+                <td th:text="${price.getLeadTime}"></td>
                 <td><a th:href="@{./prices/editPrice/{type}(type=${price.getType})}">edit</a></td>
                 <td><a th:href="@{./prices/deletePrice/{type}(type=${price.getType})}">delete</a></td>
 

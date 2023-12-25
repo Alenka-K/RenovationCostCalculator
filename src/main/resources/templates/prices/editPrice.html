@@ -1,38 +1,34 @@
 <!DOCTYPE html>
-<html lang="en" xmlns:th="http://www.w3.org/1999/xhtml"
->
+<html lang="en" xmlns:th="http://www.w3.org/1999/xhtml">
 <head>
     <meta charset="UTF-8">
     <title>Обновить данные</title>
+    <link rel="stylesheet" type="text/css" th:href="@{/css/styleS.css}"/>
 </head>
 <body>
 <form th:method="patch" th:action="@{/prices/updatePrice/{type}(type=${price.type})}" th:object="${price}">
-    <label for="surface">Выберите группу поверхностей</label>
-    <select type="text" th:field="*{surface}" id="surface">
-        <option th:each="surface : ${T(com.example.renovationcostcalculator.model.price.Surface).values()}"
-                th:value="${surface}"
-                th:text="${surface}">
-        </option>
-    </select>
-    <br>
-    <label for="type">Вид работы</label>
-    <input type="text" readonly th:field="*{type}" id="type"/>
-    <br>
-    <label for="amount">Цена
-        <input type="text" th:field="*{amount}" id="amount"/>грн за </label>
-    <label>
+    <label for="surface">Выберите группу поверхностей :
+        <select type="text" th:field="*{surface}" id="surface">
+            <option th:each="surface : ${T(com.example.renovationcostcalculator.model.price.Surface).values()}"
+                    th:value="${surface}"
+                    th:text="${surface}">
+            </option>
+        </select>
+    </label>
+    <label for="type">Вид работы :
+        <input type="text" readonly th:field="*{type}" id="type"/>
+    </label>
+    <label for="amount">Цена :
+        <input type="text" th:field="*{amount}" id="amount"/>грн за
         <input type="radio" th:field="*{unit}" name="unit" value="м2">
         м2
-    </label>
-    <label>
         <input type="radio" th:field="*{unit}" name="unit" value="мп">
         мп
-    </label>
-    <label>
         <input type="radio" th:field="*{unit}" name="unit" value="шт">
         шт
     </label>
-    <br>
+    <label for="leadTime">Время выполнения :
+        <input type="text" th:field="*{leadTime}" id="leadTime"/>мин за ед.изм.</label>
     <input type="submit" value="Обновить"/>
 </form>
 </body>

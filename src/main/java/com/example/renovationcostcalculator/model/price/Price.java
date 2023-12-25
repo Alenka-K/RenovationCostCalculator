@@ -30,6 +30,9 @@ public class Price {
     @Enumerated(EnumType.STRING)
     private Unit unit;
 
+    @Column(nullable = true)
+    private Double leadTime;
+
 
     @ManyToMany(fetch = FetchType.LAZY, mappedBy = "priceSet")
     private Set<Room> rooms;

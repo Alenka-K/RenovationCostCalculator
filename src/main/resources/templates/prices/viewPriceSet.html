@@ -1,0 +1,24 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Затраты времени по комнате</title>
+    <link rel="stylesheet" type="text/css" th:href="@{/css/styleS.css}"/>
+</head>
+<body>
+<table class="leadTime">
+    <tbody >
+    <tr>
+        <th>Вид работы</th>
+        <th>Обьем </th>
+        <th>Время выполнения</th>
+    </tr>
+    <tr th:each="map :${room.getCalculationOfTimeSpentOnBasicWork()}">
+        <td><span th:text="${map.getKey().getType()}"></span></td>
+        <td><span th:text="${map.getValue().get(0)} + ' ' + ${map.getKey().getUnit()}"></span></td>
+        <td><span th:text="${map.getValue().get(1)}"></span></td>
+    </tr>
+    </tbody>
+</table>
+</body>
+</html>

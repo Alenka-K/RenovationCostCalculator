@@ -3,28 +3,21 @@
 <head>
     <meta charset="UTF-8">
     <title>Добавление стены в комнате</title>
-    <link rel="stylesheet" type="text/css" th:href="@{/css/style.css}"/>
+    <link rel="stylesheet" type="text/css" th:href="@{/css/styleS.css}"/>
 </head>
 <body>
 <h2>Введите размеры стены:</h2>
 
 <form method="PATCH" th:action="@{/walls/saveWall}" th:object="${wall}">
     <input type="hidden" th:field="*{id}" id="id"/>
-    <br>
     <input type="hidden" th:field="*{room}" id="room"/>
-    <br>
-    <label for="height">Высота стены-перегородки</label>
-    <input type="number" th:field="*{height}" id="height"/>
-    <br>
-    <label for="length">Длина стены-перегородки</label>
-    <input type="number" th:field="*{length}" id="length"/>
-    <br>
-    <label for="depth">Толщина</label>
-    <input type="number" th:field="*{depth}" id="depth"/>
-    <br>
-    <input type="submit" value="Add wall"/>
-    <br>
+    <label for="height">Высота стены-перегородки :
+    <input type="number" name="height" id="height"/></label>
+    <label for="length">Длина стены-перегородки :
+    <input type="number" name="length" id="length"/></label>
+    <label for="depth">Толщина :
+    <input type="number" name="depth" id="depth"/></label>
+    <input type="submit" value="Добавить стену-перегородку"/>
 </form>
-
 </body>
 </html>

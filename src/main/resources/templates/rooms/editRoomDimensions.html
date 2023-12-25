@@ -3,54 +3,43 @@
 <head>
     <meta charset="UTF-8">
     <title>Title</title>
+    <link rel="stylesheet" type="text/css" th:href="@{/css/styleS.css}"/>
 </head>
 <body>
+<h2>Измените размеры комнаты </h2>
 <form method="PATCH" th:action="@{/rooms/updateRoomDimensions}" th:object="${room}">
-    <label >Комната: </label>
-    <input type="number" th:value="${id}"  name="id"/>
-    <br>
-    <label >Высота</label>
-    <input type="number" th:value="*{height}" name="height"/>
-    <br>
+    <label >Комната:
+        <input type="number" th:value="${id}"  name="id"/></label>
+    <label >Высота :
+    <input type="number" th:value="*{height}" name="height"/></label>
     <input type="hidden" th:field="*{flat}" id="flat"/>
-    <br>
     <span th:switch="${room.form.name()}">
             <p th:case="'RECTANGLE'">
-            <label >Длинна</label>
-            <input type="number" th:value="*{length}" name="length"/>
-            <br>
-            <label >Ширина</label>
-            <input type="number" th:field="*{width}" id="width"/>
-            <br>
+            <label >Длинна :
+            <input type="number" th:value="*{length}" name="length"/></label>
+            <label >Ширина :
+            <input type="number" th:field="*{width}" id="width"/></label>
             </p>
             <p th:case="'L_SHAPED'">
-            <label >Длинна</label>
-            <input type="number" th:field="*{length}" id="length"/>
-            <br>
-            <label >Ширина</label>
-            <input type="number" th:field="*{width}" name="width"/>
-            <br>
-            <label for="lengthSmall">Длинна меньшая</label>
-            <input type="number" th:field="*{lengthSmall}" id="lengthSmall"/>
-            <br>
-            <label for="widthSmall">Ширина меньшая</label>
-            <input type="number" th:field="*{widthSmall}" id="widthSmall"/>
-            <br>
+            <label >Длинна :
+            <input type="number" th:field="*{length}" id="length"/></label>
+            <label >Ширина :
+            <input type="number" th:field="*{width}" name="width"/></label>
+            <label for="lengthSmall">Длинна меньшая :
+            <input type="number" th:field="*{lengthSmall}" id="lengthSmall"/></label>
+            <label for="widthSmall">Ширина меньшая :
+            <input type="number" th:field="*{widthSmall}" id="widthSmall"/></label>
             </p>
             <p th:case="'FREE'">
-                <label for="widthOfCircumscribedRectangle">Ширина описанного прямоугольника:</label>
-                <input type="number" th:field="*{widthOfCircumscribedRectangle}" id="widthOfCircumscribedRectangle"/>
-                <br>
-                <label for="lengthOfCircumscribedRectangle">Длинна описанного прямоугольника:</label>
-                <input type="number" th:field="*{lengthOfCircumscribedRectangle}" id="lengthOfCircumscribedRectangle"/>
-                <br>
-                <label for="listOfWallLengths">Длины стен:</label>
-                <input type="text" th:field="*{listOfWallLengths}" id="listOfWallLengths"/>
-                <br>
-                <label for="rectanglesToExtractFromCircumscribedRectangle">Прямоугольники для вычета из описанного через запятую (пример 1200/1800,1400/1000):</label>
-                <input type="text" th:field="*{rectanglesToExtractFromCircumscribedRectangle}" id="rectanglesToExtractFromCircumscribedRectangle"/>
-                <br>
-                </p>
+                <label for="widthOfCircumscribedRectangle">Ширина описанного прямоугольника:
+                <input type="number" th:field="*{widthOfCircumscribedRectangle}" id="widthOfCircumscribedRectangle"/></label>
+                <label for="lengthOfCircumscribedRectangle">Длинна описанного прямоугольника:
+                <input type="number" th:field="*{lengthOfCircumscribedRectangle}" id="lengthOfCircumscribedRectangle"/></label>
+                <label for="listOfWallLengths">Длины стен:
+                <input type="text" th:field="*{listOfWallLengths}" id="listOfWallLengths"/></label>
+                <label for="rectanglesToExtractFromCircumscribedRectangle">Прямоугольники для вычета из описанного через запятую (пример 1200/1800,1400/1000):
+                <input type="text" th:field="*{rectanglesToExtractFromCircumscribedRectangle}" id="rectanglesToExtractFromCircumscribedRectangle"/></label>
+            </p>
     </span>
     <input type="submit"   value="Добавить размеры"/>
 

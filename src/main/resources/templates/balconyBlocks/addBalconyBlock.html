@@ -11,26 +11,18 @@
 <img width="300px" th:src="@{/images/balconyBlock_dimensions.jpg}" />
 <form method="PATCH" th:action="@{/balconyBlocks/saveBalconyBlock}" th:object="${balconyBlock}">
     <input type="hidden" th:field="*{id}" id="id"/>
-    <br>
     <input type="hidden" th:field="*{room}" id="room"/>
-    <br>
-    <label for="height">Высота H:</label>
-    <input type="number" name="height" id="height"/>
-    <br>
-    <label for="width">Ширина B:</label>
-    <input type="number" name="width" id="width"/>
-    <br>
-    <label for="heightSmall">Высота окна h:</label>
-    <input type="number" name="heightSmall" id="heightSmall"/>
-    <br>
-    <label for="widthSmall">Ширина окна b:</label>
-    <input type="number" name="widthSmall" id="widthSmall"/>
-    <br>
-    <label for="depth">Глубина балконного блока</label>
-    <input type="number" name="depth" id="depth"/>
-    <br>
+    <label for="height">Высота H:
+    <input type="number" name="height" id="height"/></label>
+    <label for="width">Ширина B:
+    <input type="number" name="width" id="width"/></label>
+    <label for="heightSmall">Высота окна h:
+    <input type="number" name="heightSmall" id="heightSmall"/></label>
+    <label for="widthSmall">Ширина окна b:
+    <input type="number" name="widthSmall" id="widthSmall"/></label>
+    <label for="depth">Глубина балконного блока:
+    <input type="number" name="depth" id="depth"/></label>
     <input type="submit" value="Добавить балконный блок"/>
-    <br>
 </form>
 
 </body>

@@ -36,6 +36,13 @@ public class PriceController {
         return "prices/viewAllPrices";
     }
 
+    @GetMapping("/viewPriceSet/{id}")
+    public String getPriseSet(@PathVariable("id") Long id, Model model){
+        model.addAttribute("room", roomService.findById(id));
+        return "prices/viewPriceSet";
+
+    }
+
 
 
     @GetMapping("/downloadPrices")
