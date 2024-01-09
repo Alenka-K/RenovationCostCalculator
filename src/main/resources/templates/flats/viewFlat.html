@@ -172,6 +172,8 @@
                             </tbody>
                         </table>
                         <br>
+                        <span>Затраты времени по комнате </span><span th:text="${room.getAllTimeOnRoomConversion()}"></span>
+                        <br>
 
                         <a th:href="@{../../prices/addPriceSet/{id}(id=${room.id})}">Добавить прайс работ по комнате</a>
                         <br>

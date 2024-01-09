@@ -10,6 +10,7 @@ import com.example.renovationcostcalculator.model.price.Unit;
 import com.example.renovationcostcalculator.model.utils.AdditionalWorkComparator;
 import com.example.renovationcostcalculator.model.utils.Count;
 import com.example.renovationcostcalculator.model.utils.PriceComparator;
+import com.example.renovationcostcalculator.model.utils.TimeConversion;
 import lombok.EqualsAndHashCode;
 import lombok.Getter;
 import lombok.Setter;
@@ -305,6 +306,14 @@ public abstract class Room {
         }
 
         return timeCalculation;
+    }
+
+    public Double getAllTimeOnRoom(){
+        return getCalculationOfTimeSpentOnBasicWork().values().stream().map(x -> x.get(1)).mapToDouble(Double::doubleValue).sum();
+    }
+
+    public String getAllTimeOnRoomConversion(){
+        return TimeConversion.conversion(getAllTimeOnRoom());
     }
 
     public Double getAllCostOfBasicWork(){

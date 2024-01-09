@@ -119,4 +119,12 @@ public class Flat implements Serializable {
     public Double getAllCost(){
         return Count.rounding(getCalculateFlat().values().stream().map(x -> x.get(1)).mapToDouble(Double::doubleValue).sum());
     }
+
+    public Double getAllTime(){
+        Double time = 0.0;
+        for(Room room : rooms){
+            time = time + room.getAllTimeOnRoom();
+        }
+        return time;
+    }
 }
